@@ -238,9 +238,7 @@ function SiteDetailModal({ site, onClose }) {
   );
 }
 
-const AIRTABLE_TOKEN   = import.meta.env.VITE_AIRTABLE_TOKEN;
-const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
-const AIRTABLE_TABLE   = "tbl7rCc5cqmB1pPK7";
+const MAKE_WEBHOOK = "https://hook.eu1.make.com/e4rif83s57n7gcapxymbc75vydg2oaa5";
 
 const venueTypes = ["Lake", "River", "Canal", "Reservoir", "Commercial Lake", "Estate Lake", "Lake Complex", "Flash Lake", "Fly Only"];
 const ukRegions  = ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire", "Wales", "Scotland", "Northern Ireland"];
@@ -262,28 +260,26 @@ function VenueSubmitModal({ onClose }) {
   const submit = async () => {
     setStatus("loading");
     try {
-      const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE}`, {
+      const res = await fetch(MAKE_WEBHOOK, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${AIRTABLE_TOKEN}`, "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fields: {
-            "Venue Name":                    form.venueName,
-            "Town":                          form.town,
-            "Region":                        form.region,
-            "Postcode":                      form.postcode,
-            "Type (Lake, River, Canal etc)": form.type,
-            "Number of Pegs":                parseInt(form.numberOfPegs) || 0,
-            "Fish Species":                  form.species.join(", "),
-            "Day Ticket Price":              form.dayTicketPrice,
-            "Night Fishing":                 form.nightFishing,
-            "Facilities":                    form.facilities.join(", "),
-            "Rules":                         form.rules,
-            "Campsite Nearby":               form.campsiteNearby,
-            "Description":                   form.description,
-            "Submitted by":                  form.submittedBy,
-            "Status":                        "Pending",
-            "Submission Date":               new Date().toISOString().split("T")[0],
-          }
+          "Venue Name":                    form.venueName,
+          "Town":                          form.town,
+          "Region":                        form.region,
+          "Postcode":                      form.postcode,
+          "Type (Lake, River, Canal etc)": form.type,
+          "Number of Pegs":                parseInt(form.numberOfPegs) || 0,
+          "Fish Species":                  form.species.join(", "),
+          "Day Ticket Price":              form.dayTicketPrice,
+          "Night Fishing":                 form.nightFishing,
+          "Facilities":                    form.facilities.join(", "),
+          "Rules":                         form.rules,
+          "Campsite Nearby":               form.campsiteNearby,
+          "Description":                   form.description,
+          "Submitted by":                  form.submittedBy,
+          "Status":                        "Pending",
+          "Submission Date":               new Date().toISOString().split("T")[0],
         })
       });
       if (!res.ok) throw new Error("Failed");
