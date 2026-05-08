@@ -1423,15 +1423,168 @@ function ForumTab() {
   return null;
 }
 
+function ListYourFisheryTab() {
+  const [formData, setFormData] = useState({ name: "", email: "", fishery: "", phone: "", tier: "", message: "" });
+  const [status, setStatus] = useState("idle");
+  const set = (f, v) => setFormData(prev => ({ ...prev, [f]: v }));
+
+  const tiers = [
+    { id: "basic",    name: "Basic",    price: "Free",     color: theme.textMuted, features: ["Fishery name and location", "Species list", "Basic contact details", "Listed in regional directory"] },
+    { id: "standard", name: "Standard", price: "£19/mo",   color: theme.water,     features: ["Everything in Basic", "Full venue profile", "Photos and description", "Day ticket prices", "Facilities and rules", "Campsite info", "Member reviews"] },
+    { id: "featured", name: "Featured", price: "£39/mo",   color: theme.accent,    features: ["Everything in Standard", "Top placement in your region", "Featured badge on listing", "Highlighted in search results", "Priority support"] },
+    { id: "premium",  name: "Premium",  price: "£79/mo",   color: theme.warning,   features: ["Everything in Featured", "Homepage feature slot", "Social media promotion", "Monthly analytics report", "Dedicated account manager"] },
+  ];
+
+  const submit = async () => {
+    if (!formData.name || !formData.email || !formData.fishery) return;
+    setStatus("loading");
+    try {
+      await fetch("https://hook.eu1.make.com/e4rif83s57n7gcapxymbc75vydg2oaa5", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "venue_enquiry", ...formData, date: new Date().toISOString().split("T")[0] })
+      });
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const inp = { background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "12px 16px", color: theme.text, fontSize: 14, fontFamily: "inherit", outline: "none", width: "100%" };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+
+      {/* Hero */}
+      <div style={{ background: `linear-gradient(135deg, ${theme.accentDim}33, ${theme.waterDim}22)`, border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: 32, textAlign: "center" }}>
+        <div style={{ fontSize: 11, color: theme.accent, fontWeight: 700, letterSpacing: 2, marginBottom: 12 }}>FOR FISHERY OWNERS</div>
+        <div style={{ fontSize: 32, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif", lineHeight: 1.2, marginBottom: 16 }}>Reach thousands of UK anglers looking for their next session</div>
+        <div style={{ color: theme.textMuted, fontSize: 15, maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>Reel Big Fish is a free platform for anglers — which means a large, engaged audience actively searching for venues like yours. Get your fishery listed and start receiving more bookings.</div>
+        <div style={{ display: "flex", gap: 24, justifyContent: "center", marginTop: 24, flexWrap: "wrap" }}>
+          {[["Free to anglers", "Maximum audience reach"], ["Live fishing forecasts", "Anglers plan trips here"], ["Forum & community", "Engaged, active members"]].map(([title, sub], i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <div style={{ fontWeight: 700, color: theme.accent, fontSize: 14 }}>{title}</div>
+              <div style={{ color: theme.textMuted, fontSize: 12, marginTop: 2 }}>{sub}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Pricing tiers */}
+      <div>
+        <div style={{ fontSize: 22, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Listing Packages</div>
+        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 20 }}>Choose the right level of visibility for your fishery. No contracts — cancel anytime.</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14 }}>
+          {tiers.map(tier => (
+            <div key={tier.id} onClick={() => set("tier", tier.id)}
+              style={{ background: formData.tier === tier.id ? tier.color + "11" : theme.surfaceAlt, border: `2px solid ${formData.tier === tier.id ? tier.color : theme.border}`, borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+                <div>
+                  <div style={{ fontWeight: 800, color: tier.color, fontSize: 16 }}>{tier.name}</div>
+                  {tier.id === "featured" && <div style={{ fontSize: 10, background: tier.color + "22", color: tier.color, borderRadius: 10, padding: "2px 8px", marginTop: 4, display: "inline-block", fontWeight: 700 }}>MOST POPULAR</div>}
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: 22, fontWeight: 900, color: tier.color }}>{tier.price}</div>
+                  {tier.price !== "Free" && <div style={{ fontSize: 10, color: theme.textMuted }}>per month</div>}
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {tier.features.map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: theme.textMuted }}>
+                    <span style={{ color: tier.color, fontWeight: 700, flexShrink: 0 }}>✓</span>{f}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Contact form */}
+      <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 28 }}>
+        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Get Listed</div>
+        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>Fill in your details and we'll be in touch within 24 hours to get your fishery set up.</div>
+
+        {status === "success" ? (
+          <div style={{ textAlign: "center", padding: "32px 0" }}>
+            <div style={{ fontSize: 40, marginBottom: 12 }}>✓</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: theme.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Enquiry Received</div>
+            <div style={{ color: theme.textMuted, fontSize: 14 }}>We'll be in touch within 24 hours to get your fishery listed.</div>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>YOUR NAME *</div>
+                <input value={formData.name} onChange={e => set("name", e.target.value)} placeholder="John Smith" style={inp} />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>EMAIL ADDRESS *</div>
+                <input value={formData.email} onChange={e => set("email", e.target.value)} placeholder="john@yourfishery.co.uk" style={inp} />
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>FISHERY NAME *</div>
+                <input value={formData.fishery} onChange={e => set("fishery", e.target.value)} placeholder="e.g. Lechlade Fishery" style={inp} />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>PHONE NUMBER</div>
+                <input value={formData.phone} onChange={e => set("phone", e.target.value)} placeholder="Optional" style={inp} />
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 8 }}>PACKAGE INTEREST</div>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                {tiers.map(t => (
+                  <button key={t.id} onClick={() => set("tier", t.id)}
+                    style={{ background: formData.tier === t.id ? t.color + "33" : theme.surface, color: formData.tier === t.id ? t.color : theme.textMuted, border: `1px solid ${formData.tier === t.id ? t.color : theme.border}`, borderRadius: 20, padding: "6px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600 }}>
+                    {t.name} — {t.price}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>ANYTHING ELSE?</div>
+              <textarea value={formData.message} onChange={e => set("message", e.target.value)} placeholder="Tell us about your fishery, any questions about packages, or anything else..." rows={4} style={{ ...inp, resize: "vertical" }} />
+            </div>
+            <button onClick={submit} disabled={!formData.name || !formData.email || !formData.fishery || status === "loading"}
+              style={{ background: !formData.name || !formData.email || !formData.fishery ? theme.border : theme.accent, color: !formData.name || !formData.email || !formData.fishery ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, transition: "all 0.2s" }}>
+              {status === "loading" ? "Sending..." : "Send Enquiry →"}
+            </button>
+            {status === "error" && <div style={{ color: theme.danger, fontSize: 13, textAlign: "center" }}>Something went wrong. Please try again or email us directly.</div>}
+          </div>
+        )}
+      </div>
+
+      {/* Trust signals */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
+        {[
+          { title: "No contracts", body: "Month to month. Cancel or upgrade at any time with no lock-in." },
+          { title: "Setup included", body: "We build your listing for you. Just send us your details and photos." },
+          { title: "Real anglers", body: "Our audience is actively planning fishing trips — not passive browsers." },
+        ].map((item, i) => (
+          <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18 }}>
+            <div style={{ fontWeight: 700, color: theme.accent, fontSize: 14, marginBottom: 6 }}>{item.title}</div>
+            <div style={{ color: theme.textMuted, fontSize: 13, lineHeight: 1.6 }}>{item.body}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ReelBigFishApp() {
   const [tab, setTab] = useState("forecast");
   const tabs = [
-    { id: "forecast", label: "Forecast" },
-    { id: "planner", label: "Trip Planner" },
-    { id: "forum", label: "Forum" },
+    { id: "forecast",  label: "Forecast" },
+    { id: "directory", label: "Venues" },
+    { id: "planner",   label: "Trip Planner" },
+    { id: "forum",     label: "Forum" },
     { id: "community", label: "Community" },
-    { id: "chat", label: "AI Guide" },
-    { id: "report", label: "Report" },
+    { id: "chat",      label: "AI Guide" },
+    { id: "report",    label: "Report" },
+    { id: "list",      label: "List Your Fishery" },
   ];
   return (
     <div style={{ minHeight: "100vh", background: theme.bg, fontFamily: "'DM Sans', 'Segoe UI', sans-serif", color: theme.text }}>
@@ -1446,31 +1599,47 @@ export default function ReelBigFishApp() {
         @keyframes slideUp { from{transform:translateY(100%)}to{transform:translateY(0)} }
         button:hover { filter: brightness(1.1); }
       `}</style>
+
+      {/* Header */}
       <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${theme.accent}, ${theme.water})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 14, color: "#000", letterSpacing: -0.5 }}>RBF</div>
-          <div><div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 20, color: theme.text, letterSpacing: -0.5 }}>Reel Big Fish</div><div style={{ fontSize: 11, color: theme.textMuted, marginTop: -2 }}>UK Fishing Membership</div></div>
+          <div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 20, color: theme.text, letterSpacing: -0.5 }}>Reel Big Fish</div>
+            <div style={{ fontSize: 11, color: theme.textMuted, marginTop: -2 }}>The UK's Free Fishing Guide</div>
+          </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ background: theme.accent + "22", border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: "4px 14px", fontSize: 12, color: theme.accent, fontWeight: 700 }}>✓ Member</div>
-          <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 20, padding: "4px 14px", fontSize: 12, color: theme.textMuted }}>£4.99/mo</div>
-        </div>
+        <button onClick={() => setTab("list")} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap" }}>
+          List Your Fishery
+        </button>
       </div>
+
+      {/* Sub banner */}
       <div style={{ background: theme.surfaceAlt, borderBottom: `1px solid ${theme.border}`, padding: "10px 24px", display: "flex", alignItems: "center", gap: 8 }}>
         <div style={{ width: 6, height: 6, borderRadius: "50%", background: theme.accent }} />
-        <span style={{ fontSize: 12, color: theme.textMuted }}>Enter your postcode in Forecast for your local 7-day fishing conditions</span>
+        <span style={{ fontSize: 12, color: theme.textMuted }}>Free for all UK anglers — enter your postcode in Forecast for live local fishing conditions</span>
       </div>
+
+      {/* Nav */}
       <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "0 24px", display: "flex", gap: 4, overflowX: "auto" }}>
-        {tabs.map(t => <button key={t.id} onClick={() => setTab(t.id)} style={{ background: "none", border: "none", borderBottom: `2px solid ${tab === t.id ? theme.accent : "transparent"}`, color: tab === t.id ? theme.accent : theme.textMuted, padding: "14px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600, transition: "all 0.2s", whiteSpace: "nowrap" }}>{t.label}</button>)}
+        {tabs.map(t => (
+          <button key={t.id} onClick={() => setTab(t.id)}
+            style={{ background: "none", border: "none", borderBottom: `2px solid ${tab === t.id ? theme.accent : "transparent"}`, color: t.id === "list" ? theme.warning : tab === t.id ? theme.accent : theme.textMuted, padding: "14px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600, transition: "all 0.2s", whiteSpace: "nowrap" }}>
+            {t.label}
+          </button>
+        ))}
       </div>
+
+      {/* Content */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: 24 }}>
-        {tab === "forecast" && <ForecastTab />}
+        {tab === "forecast"  && <ForecastTab />}
         {tab === "directory" && <DirectoryTab />}
-        {tab === "planner" && <TripPlannerTab />}
-        {tab === "forum" && <ForumTab />}
+        {tab === "planner"   && <TripPlannerTab />}
+        {tab === "forum"     && <ForumTab />}
         {tab === "community" && <CommunityTab />}
-        {tab === "chat" && <ChatTab />}
-        {tab === "report" && <ReportTab />}
+        {tab === "chat"      && <ChatTab />}
+        {tab === "report"    && <ReportTab />}
+        {tab === "list"      && <ListYourFisheryTab />}
       </div>
     </div>
   );
