@@ -238,11 +238,220 @@ function SiteDetailModal({ site, onClose }) {
   );
 }
 
+const AIRTABLE_TOKEN   = import.meta.env.VITE_AIRTABLE_TOKEN;
+const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
+const AIRTABLE_TABLE   = "tbl7rCc5cqmB1pPK7";
+
+const venueTypes = ["Lake", "River", "Canal", "Reservoir", "Commercial Lake", "Estate Lake", "Lake Complex", "Flash Lake", "Fly Only"];
+const ukRegions  = ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire", "Wales", "Scotland", "Northern Ireland"];
+const speciesList = ["Carp", "Tench", "Bream", "Roach", "Perch", "Pike", "Barbel", "Chub", "Trout", "F1 Carp", "Ide", "Rudd", "Crucian Carp", "Catfish", "Zander", "Dace", "Grayling"];
+const facilitiesList = ["Car park", "Toilets", "Showers", "Café", "Tackle shop", "Disabled access", "Disabled pegs", "Electric hookup", "Camping on site", "Lodges", "Bait available"];
+
+function VenueSubmitModal({ onClose }) {
+  const [step, setStep] = useState(1);
+  const [status, setStatus] = useState("idle");
+  const [form, setForm] = useState({
+    venueName: "", town: "", region: "", postcode: "", type: "",
+    numberOfPegs: "", species: [], dayTicketPrice: "", nightFishing: false,
+    facilities: [], rules: "", campsiteNearby: "", description: "", submittedBy: "",
+  });
+
+  const set = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
+  const toggleArr = (field, val) => setForm(prev => ({ ...prev, [field]: prev[field].includes(val) ? prev[field].filter(x => x !== val) : [...prev[field], val] }));
+
+  const submit = async () => {
+    setStatus("loading");
+    try {
+      const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE}`, {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${AIRTABLE_TOKEN}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fields: {
+            "Venue Name":                    form.venueName,
+            "Town":                          form.town,
+            "Region":                        form.region,
+            "Postcode":                      form.postcode,
+            "Type (Lake, River, Canal etc)": form.type,
+            "Number of Pegs":                parseInt(form.numberOfPegs) || 0,
+            "Fish Species":                  form.species.join(", "),
+            "Day Ticket Price":              form.dayTicketPrice,
+            "Night Fishing":                 form.nightFishing,
+            "Facilities":                    form.facilities.join(", "),
+            "Rules":                         form.rules,
+            "Campsite Nearby":               form.campsiteNearby,
+            "Description":                   form.description,
+            "Submitted by":                  form.submittedBy,
+            "Status":                        "Pending",
+            "Submission Date":               new Date().toISOString().split("T")[0],
+          }
+        })
+      });
+      if (!res.ok) throw new Error("Failed");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const inp = { background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "10px 14px", color: theme.text, fontSize: 14, fontFamily: "inherit", outline: "none", width: "100%" };
+
+  return (
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "#000000cc", zIndex: 200, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: "20px 20px 0 0", width: "100%", maxWidth: 700, maxHeight: "90vh", overflowY: "auto" }}>
+
+        {/* Header */}
+        <div style={{ padding: "20px 24px 16px", borderBottom: `1px solid ${theme.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", position: "sticky", top: 0, background: theme.surface, zIndex: 1 }}>
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif" }}>Add a Venue</div>
+            <div style={{ fontSize: 12, color: theme.textMuted }}>Step {step} of 3 — {step === 1 ? "Basic Details" : step === 2 ? "Species & Facilities" : "Description & Submit"}</div>
+          </div>
+          <button onClick={onClose} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: "50%", width: 36, height: 36, color: theme.textMuted, cursor: "pointer", fontSize: 18, fontFamily: "inherit" }}>×</button>
+        </div>
+
+        <div style={{ padding: 24 }}>
+
+          {status === "success" ? (
+            <div style={{ textAlign: "center", padding: "40px 20px" }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>🎣</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: theme.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Venue Submitted!</div>
+              <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Thank you for adding this venue. It will be reviewed and added to the directory shortly.</div>
+              <button onClick={onClose} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "12px 32px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>Done</button>
+            </div>
+          ) : status === "error" ? (
+            <div style={{ textAlign: "center", padding: "40px 20px" }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+              <div style={{ color: theme.danger, fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Submission Failed</div>
+              <div style={{ color: theme.textMuted, fontSize: 14, marginBottom: 24 }}>Something went wrong. Please try again.</div>
+              <button onClick={() => setStatus("idle")} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "12px 32px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>Try Again</button>
+            </div>
+          ) : (
+            <>
+              {/* Step 1 — Basic Details */}
+              {step === 1 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>VENUE NAME *</div>
+                    <input value={form.venueName} onChange={e => set("venueName", e.target.value)} placeholder="e.g. Lechlade & Bushyleaze" style={inp} />
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div>
+                      <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>TOWN *</div>
+                      <input value={form.town} onChange={e => set("town", e.target.value)} placeholder="e.g. Lechlade-on-Thames" style={inp} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>POSTCODE</div>
+                      <input value={form.postcode} onChange={e => set("postcode", e.target.value)} placeholder="e.g. GL7 3HG" style={inp} />
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>REGION *</div>
+                    <select value={form.region} onChange={e => set("region", e.target.value)} style={{ ...inp }}>
+                      <option value="">Select region...</option>
+                      {ukRegions.map(r => <option key={r} value={r}>{r}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>VENUE TYPE *</div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {venueTypes.map(t => (
+                        <button key={t} onClick={() => set("type", t)} style={{ background: form.type === t ? theme.accent + "33" : theme.surfaceAlt, color: form.type === t ? theme.accent : theme.textMuted, border: `1px solid ${form.type === t ? theme.accent : theme.border}`, borderRadius: 20, padding: "5px 12px", cursor: "pointer", fontFamily: "inherit", fontSize: 12, fontWeight: 600 }}>{t}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div>
+                      <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>NUMBER OF PEGS</div>
+                      <input type="number" value={form.numberOfPegs} onChange={e => set("numberOfPegs", e.target.value)} placeholder="e.g. 30" style={inp} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>DAY TICKET PRICE</div>
+                      <input value={form.dayTicketPrice} onChange={e => set("dayTicketPrice", e.target.value)} placeholder="e.g. £10" style={inp} />
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, background: theme.surfaceAlt, borderRadius: 10, padding: "12px 16px" }}>
+                    <input type="checkbox" id="nightfishing" checked={form.nightFishing} onChange={e => set("nightFishing", e.target.checked)} style={{ width: 18, height: 18, cursor: "pointer" }} />
+                    <label htmlFor="nightfishing" style={{ color: theme.text, fontSize: 14, cursor: "pointer" }}>Night fishing available</label>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2 — Species & Facilities */}
+              {step === 2 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>FISH SPECIES — tick all that apply</div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {speciesList.map(s => (
+                        <button key={s} onClick={() => toggleArr("species", s)} style={{ background: form.species.includes(s) ? theme.water + "33" : theme.surfaceAlt, color: form.species.includes(s) ? theme.water : theme.textMuted, border: `1px solid ${form.species.includes(s) ? theme.water : theme.border}`, borderRadius: 20, padding: "5px 12px", cursor: "pointer", fontFamily: "inherit", fontSize: 12, fontWeight: 600 }}>{s}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>FACILITIES — tick all that apply</div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {facilitiesList.map(f => (
+                        <button key={f} onClick={() => toggleArr("facilities", f)} style={{ background: form.facilities.includes(f) ? theme.accentDim + "44" : theme.surfaceAlt, color: form.facilities.includes(f) ? theme.accent : theme.textMuted, border: `1px solid ${form.facilities.includes(f) ? theme.accent : theme.border}`, borderRadius: 20, padding: "5px 12px", cursor: "pointer", fontFamily: "inherit", fontSize: 12, fontWeight: 600 }}>{f}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>NEAREST CAMPSITE (optional)</div>
+                    <input value={form.campsiteNearby} onChange={e => set("campsiteNearby", e.target.value)} placeholder="e.g. Riverside Camping, 0.5 miles" style={inp} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>RULES (optional)</div>
+                    <textarea value={form.rules} onChange={e => set("rules", e.target.value)} placeholder="e.g. Barbless hooks only, no bait boats, unhooking mats required..." rows={3} style={{ ...inp, resize: "vertical" }} />
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3 — Description & Submit */}
+              {step === 3 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>VENUE DESCRIPTION *</div>
+                    <textarea value={form.description} onChange={e => set("description", e.target.value)} placeholder="Tell other anglers about this venue — what makes it special, best swims, tips for first timers..." rows={6} style={{ ...inp, resize: "vertical" }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>YOUR NAME / USERNAME</div>
+                    <input value={form.submittedBy} onChange={e => set("submittedBy", e.target.value)} placeholder="e.g. CarpKing_Dave" style={inp} />
+                  </div>
+                  <div style={{ background: theme.surfaceAlt, borderRadius: 12, padding: 16, fontSize: 13, color: theme.textMuted, lineHeight: 1.6 }}>
+                    Your submission will be reviewed before appearing in the directory. Thank you for helping build the UK's best fishing venue database.
+                  </div>
+                </div>
+              )}
+
+              {/* Navigation buttons */}
+              <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
+                {step > 1 && <button onClick={() => setStep(step - 1)} style={{ flex: 1, background: "none", border: `1px solid ${theme.border}`, borderRadius: 12, padding: "14px", color: theme.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 14 }}>← Back</button>}
+                {step < 3 && (
+                  <button onClick={() => setStep(step + 1)} disabled={step === 1 && (!form.venueName || !form.region || !form.type)}
+                    style={{ flex: 2, background: step === 1 && (!form.venueName || !form.region || !form.type) ? theme.border : theme.accent, color: step === 1 && (!form.venueName || !form.region || !form.type) ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "14px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>
+                    Next →
+                  </button>
+                )}
+                {step === 3 && (
+                  <button onClick={submit} disabled={!form.description || status === "loading"}
+                    style={{ flex: 2, background: !form.description || status === "loading" ? theme.border : theme.accent, color: !form.description || status === "loading" ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "14px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>
+                    {status === "loading" ? "Submitting..." : "Submit Venue →"}
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DirectoryTab() {
   const [selectedRegion, setSelectedRegion] = useState("All");
   const [search, setSearch] = useState("");
   const [selectedSite, setSelectedSite] = useState(null);
   const [filterType, setFilterType] = useState("All");
+  const [showSubmit, setShowSubmit] = useState(false);
 
   const allSites = Object.entries(directoryData).flatMap(([region, sites]) =>
     sites.map(s => ({ ...s, region }))
@@ -264,6 +473,16 @@ function DirectoryTab() {
   return (
     <div>
       {selectedSite && <SiteDetailModal site={selectedSite} onClose={() => setSelectedSite(null)} />}
+      {showSubmit && <VenueSubmitModal onClose={() => setShowSubmit(false)} />}
+
+      {/* Add venue banner */}
+      <div style={{ background: `linear-gradient(135deg, ${theme.accentDim}22, ${theme.waterDim}11)`, border: `1px solid ${theme.accent}44`, borderRadius: 14, padding: "16px 20px", marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
+        <div>
+          <div style={{ fontWeight: 700, color: theme.text, fontSize: 15, marginBottom: 2 }}>Know a venue that's missing?</div>
+          <div style={{ fontSize: 13, color: theme.textMuted }}>Help build the UK's most complete fishing venue directory</div>
+        </div>
+        <button onClick={() => setShowSubmit(true)} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 10, padding: "10px 20px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 13, whiteSpace: "nowrap", flexShrink: 0 }}>+ Add a Venue</button>
+      </div>
 
       {/* Search & filters */}
       <div style={{ display: "flex", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>
