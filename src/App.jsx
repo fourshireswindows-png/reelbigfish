@@ -1423,17 +1423,154 @@ function ForumTab() {
   return null;
 }
 
+function HomePage({ setTab }) {
+  const [postcode, setPostcode] = useState("");
+  const [forecast, setForecast] = useState(null);
+  const [locationName, setLocationName] = useState("");
+  const [forecastLoading, setForecastLoading] = useState(false);
+
+  const quickForecast = async () => {
+    const clean = postcode.trim().toUpperCase().replace(/\s+/g, "");
+    if (!clean) return;
+    setForecastLoading(true);
+    try {
+      const pcRes = await fetch(`https://api.postcodes.io/postcodes/${clean}`);
+      const pcData = await pcRes.json();
+      if (pcData.status !== 200) throw new Error();
+      const { latitude: lat, longitude: lng, admin_county, admin_district } = pcData.result;
+      setLocationName(admin_county || admin_district || clean);
+      const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,surface_pressure_max&timezone=Europe%2FLondon&forecast_days=3`);
+      const wx = await wxRes.json();
+      const days = wx.daily.time.map((d, i) => {
+        const avgTemp = Math.round((wx.daily.temperature_2m_max[i] + wx.daily.temperature_2m_min[i]) / 2);
+        const wind = Math.round(wx.daily.windspeed_10m_max[i]);
+        const rain = Math.round(wx.daily.precipitation_sum[i] * 10) / 10;
+        const pressure = wx.daily.surface_pressure_max[i];
+        const trend = i === 0 ? "Stable" : pressure > wx.daily.surface_pressure_max[i-1] + 1.5 ? "Rising" : pressure < wx.daily.surface_pressure_max[i-1] - 1.5 ? "Falling" : "Stable";
+        let score = 5;
+        if (avgTemp >= 12 && avgTemp <= 17) score += 2; else if (avgTemp >= 9) score += 1; else score -= 1;
+        if (wind < 10) score += 1.5; else if (wind < 20) score += 0.5; else score -= 1.5;
+        if (rain === 0) score += 0.5; else if (rain < 3) score += 0.2; else if (rain < 8) score -= 1; else score -= 2.5;
+        if (trend === "Rising") score += 1.2; else if (trend === "Falling") score -= 1;
+        score = Math.min(10, Math.max(1, Math.round(score * 10) / 10));
+        const rating = score >= 8 ? "Excellent" : score >= 6.5 ? "Good" : score >= 4.5 ? "Fair" : "Poor";
+        const names = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const date = new Date(d);
+        return { day: i === 0 ? "Today" : i === 1 ? "Tomorrow" : names[date.getDay()], score, rating, temp: avgTemp, rain };
+      });
+      setForecast(days);
+    } catch {}
+    setForecastLoading(false);
+  };
+
+  const features = [
+    { id: "forecast", icon: "🌤️", title: "Live Fishing Forecast", body: "Real weather data for your exact location. Fishing score, best time windows, target species and bait recommendations — updated daily.", color: theme.water },
+    { id: "directory", icon: "📍", title: "Venue Directory", body: "Day ticket fisheries across the UK with full details, reviews, rules and nearest campsites. Search by region, species or venue type.", color: theme.accent },
+    { id: "planner", icon: "🗺️", title: "AI Trip Planner", body: "Pick a venue, choose your dates, set your nights. Our AI builds a complete trip plan — session timetable, bait setup, kit checklist and local tips.", color: "#a78bfa" },
+    { id: "forum", icon: "💬", title: "Fishing Forum", body: "10 dedicated sub-forums covering every type of fishing. Ask questions, share catches, get venue tips from anglers who know.", color: "#fb923c" },
+    { id: "chat", icon: "🤖", title: "AI Fishing Guide", body: "Ask anything — species identification, rig setup, bait choice, regulations, river reading. Expert answers in seconds.", color: theme.warning },
+    { id: "report", icon: "📋", title: "Monthly Report", body: "Seasonal conditions, species in focus, technique of the month, regulation reminders. Everything you need to fish smarter.", color: theme.good },
+  ];
+
+  const ratingCol = (r) => r === "Excellent" ? theme.excellent : r === "Good" ? theme.good : r === "Fair" ? theme.fair : theme.poor;
+
+  return (
+    <div>
+      {/* Hero */}
+      <div style={{ background: `linear-gradient(180deg, #0a1a0e 0%, ${theme.bg} 100%)`, borderBottom: `1px solid ${theme.border}`, padding: "60px 24px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        {/* Background grid decoration */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 20% 50%, ${theme.accent}08 0%, transparent 50%), radial-gradient(circle at 80% 20%, ${theme.water}08 0%, transparent 40%)`, pointerEvents: "none" }} />
+        <div style={{ position: "relative" }}>
+          <div style={{ display: "inline-block", background: theme.accent + "22", border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: "4px 16px", fontSize: 12, color: theme.accent, fontWeight: 700, letterSpacing: 1, marginBottom: 20 }}>FREE FOR ALL UK ANGLERS</div>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 900, color: theme.text, lineHeight: 1.15, marginBottom: 20, maxWidth: 700, margin: "0 auto 20px" }}>
+            The UK's most complete<br />
+            <span style={{ color: theme.accent }}>fishing guide</span>
+          </h1>
+          <p style={{ color: theme.textMuted, fontSize: 16, maxWidth: 500, margin: "0 auto 36px", lineHeight: 1.7 }}>
+            Live forecasts, venue directory, trip planner, forum and AI fishing guide — all completely free.
+          </p>
+
+          {/* Postcode forecast widget */}
+          <div style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 24, maxWidth: 520, margin: "0 auto", textAlign: "left" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: theme.text, marginBottom: 12 }}>Check fishing conditions at your location</div>
+            <div style={{ display: "flex", gap: 10 }}>
+              <input
+                value={postcode}
+                onChange={e => setPostcode(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && quickForecast()}
+                placeholder="Enter your postcode — e.g. OX7 1AA"
+                style={{ flex: 1, background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "12px 16px", color: theme.text, fontSize: 14, fontFamily: "inherit", outline: "none" }}
+              />
+              <button onClick={quickForecast} disabled={forecastLoading}
+                style={{ background: forecastLoading ? theme.border : theme.accent, color: forecastLoading ? theme.textMuted : "#000", border: "none", borderRadius: 10, padding: "12px 20px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14, whiteSpace: "nowrap" }}>
+                {forecastLoading ? "..." : "Check →"}
+              </button>
+            </div>
+
+            {forecast && (
+              <div style={{ marginTop: 16 }}>
+                <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>3-DAY FORECAST — {locationName.toUpperCase()}</div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
+                  {forecast.map((d, i) => (
+                    <div key={i} style={{ background: theme.surfaceAlt, borderRadius: 12, padding: "12px 10px", textAlign: "center", border: `1px solid ${ratingCol(d.rating)}33` }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: theme.textMuted, marginBottom: 6 }}>{d.day}</div>
+                      <div style={{ fontSize: 26, fontWeight: 900, color: ratingCol(d.rating) }}>{d.score}</div>
+                      <div style={{ fontSize: 11, color: ratingCol(d.rating), fontWeight: 700, marginTop: 2 }}>{d.rating}</div>
+                      <div style={{ fontSize: 11, color: theme.textMuted, marginTop: 4 }}>{d.temp}°C {d.rain > 0 ? "· 🌧️" : "· ☀️"}</div>
+                    </div>
+                  ))}
+                </div>
+                <button onClick={() => setTab("forecast")} style={{ width: "100%", marginTop: 12, background: "none", border: `1px solid ${theme.border}`, borderRadius: 10, padding: "10px", color: theme.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600 }}>
+                  View full 7-day forecast →
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Features grid */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
+        <div style={{ textAlign: "center", marginBottom: 32 }}>
+          <div style={{ fontSize: 24, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Everything you need. All free.</div>
+          <div style={{ fontSize: 14, color: theme.textMuted }}>Six tools built for UK anglers — no subscription, no sign-up required.</div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14 }}>
+          {features.map((f, i) => (
+            <div key={i} onClick={() => setTab(f.id)}
+              style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 16, padding: 22, cursor: "pointer", transition: "all 0.2s", display: "flex", gap: 16, alignItems: "flex-start" }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: f.color + "22", border: `1px solid ${f.color}33`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>{f.icon}</div>
+              <div>
+                <div style={{ fontWeight: 700, color: theme.text, fontSize: 15, marginBottom: 6 }}>{f.title}</div>
+                <div style={{ color: theme.textMuted, fontSize: 13, lineHeight: 1.6 }}>{f.body}</div>
+                <div style={{ color: f.color, fontSize: 12, fontWeight: 700, marginTop: 10 }}>Open →</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Fishery owner CTA */}
+      <div style={{ background: theme.surface, borderTop: `1px solid ${theme.border}`, padding: "40px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Do you run a fishery?</div>
+            <div style={{ color: theme.textMuted, fontSize: 14, maxWidth: 480, lineHeight: 1.6 }}>Get your venue listed in front of thousands of UK anglers — completely free. No credit card, no commitment.</div>
+          </div>
+          <button onClick={() => setTab("list")}
+            style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "14px 28px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, whiteSpace: "nowrap", flexShrink: 0 }}>
+            List Your Fishery Free →
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ListYourFisheryTab() {
-  const [formData, setFormData] = useState({ name: "", email: "", fishery: "", phone: "", tier: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", fishery: "", phone: "", region: "", message: "" });
   const [status, setStatus] = useState("idle");
   const set = (f, v) => setFormData(prev => ({ ...prev, [f]: v }));
-
-  const tiers = [
-    { id: "basic",    name: "Basic",    price: "Free",     color: theme.textMuted, features: ["Fishery name and location", "Species list", "Basic contact details", "Listed in regional directory"] },
-    { id: "standard", name: "Standard", price: "£19/mo",   color: theme.water,     features: ["Everything in Basic", "Full venue profile", "Photos and description", "Day ticket prices", "Facilities and rules", "Campsite info", "Member reviews"] },
-    { id: "featured", name: "Featured", price: "£39/mo",   color: theme.accent,    features: ["Everything in Standard", "Top placement in your region", "Featured badge on listing", "Highlighted in search results", "Priority support"] },
-    { id: "premium",  name: "Premium",  price: "£79/mo",   color: theme.warning,   features: ["Everything in Featured", "Homepage feature slot", "Social media promotion", "Monthly analytics report", "Dedicated account manager"] },
-  ];
 
   const submit = async () => {
     if (!formData.name || !formData.email || !formData.fishery) return;
@@ -1442,7 +1579,7 @@ function ListYourFisheryTab() {
       await fetch("https://hook.eu1.make.com/e4rif83s57n7gcapxymbc75vydg2oaa5", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "venue_enquiry", ...formData, date: new Date().toISOString().split("T")[0] })
+        body: JSON.stringify({ type: "fishery_listing_enquiry", ...formData, date: new Date().toISOString().split("T")[0] })
       });
       setStatus("success");
     } catch {
@@ -1453,48 +1590,31 @@ function ListYourFisheryTab() {
   const inp = { background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "12px 16px", color: theme.text, fontSize: 14, fontFamily: "inherit", outline: "none", width: "100%" };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
 
       {/* Hero */}
       <div style={{ background: `linear-gradient(135deg, ${theme.accentDim}33, ${theme.waterDim}22)`, border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: 32, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: theme.accent, fontWeight: 700, letterSpacing: 2, marginBottom: 12 }}>FOR FISHERY OWNERS</div>
-        <div style={{ fontSize: 32, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif", lineHeight: 1.2, marginBottom: 16 }}>Reach thousands of UK anglers looking for their next session</div>
-        <div style={{ color: theme.textMuted, fontSize: 15, maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>Reel Big Fish is a free platform for anglers — which means a large, engaged audience actively searching for venues like yours. Get your fishery listed and start receiving more bookings.</div>
-        <div style={{ display: "flex", gap: 24, justifyContent: "center", marginTop: 24, flexWrap: "wrap" }}>
-          {[["Free to anglers", "Maximum audience reach"], ["Live fishing forecasts", "Anglers plan trips here"], ["Forum & community", "Engaged, active members"]].map(([title, sub], i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <div style={{ fontWeight: 700, color: theme.accent, fontSize: 14 }}>{title}</div>
-              <div style={{ color: theme.textMuted, fontSize: 12, marginTop: 2 }}>{sub}</div>
-            </div>
-          ))}
-        </div>
+        <div style={{ fontSize: 30, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif", lineHeight: 1.2, marginBottom: 16 }}>Get your fishery in front of thousands of UK anglers — completely free</div>
+        <div style={{ color: theme.textMuted, fontSize: 15, maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>Reel Big Fish is a free platform built for UK anglers. We're building the most complete fishing venue directory in the country and we want your fishery in it from day one.</div>
       </div>
 
-      {/* Pricing tiers */}
+      {/* What you get */}
       <div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Listing Packages</div>
-        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 20 }}>Choose the right level of visibility for your fishery. No contracts — cancel anytime.</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14 }}>
-          {tiers.map(tier => (
-            <div key={tier.id} onClick={() => set("tier", tier.id)}
-              style={{ background: formData.tier === tier.id ? tier.color + "11" : theme.surfaceAlt, border: `2px solid ${formData.tier === tier.id ? tier.color : theme.border}`, borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
-                <div>
-                  <div style={{ fontWeight: 800, color: tier.color, fontSize: 16 }}>{tier.name}</div>
-                  {tier.id === "featured" && <div style={{ fontSize: 10, background: tier.color + "22", color: tier.color, borderRadius: 10, padding: "2px 8px", marginTop: 4, display: "inline-block", fontWeight: 700 }}>MOST POPULAR</div>}
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: tier.color }}>{tier.price}</div>
-                  {tier.price !== "Free" && <div style={{ fontSize: 10, color: theme.textMuted }}>per month</div>}
-                </div>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                {tier.features.map((f, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: theme.textMuted }}>
-                    <span style={{ color: tier.color, fontWeight: 700, flexShrink: 0 }}>✓</span>{f}
-                  </div>
-                ))}
-              </div>
+        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 16 }}>What's included — free</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          {[
+            { icon: "📍", title: "Full venue profile", body: "Name, location, description, photos, species, facilities and rules." },
+            { icon: "🎟️", title: "Ticket pricing", body: "Day tickets, evening tickets, season tickets and night fishing availability." },
+            { icon: "⛺", title: "Campsite information", body: "Nearest campsites, distances and facilities for overnight anglers." },
+            { icon: "⭐", title: "Member reviews", body: "Genuine reviews from anglers who've fished your venue." },
+            { icon: "🔍", title: "Search visibility", body: "Listed by region, species and venue type so anglers find you easily." },
+            { icon: "📱", title: "Mobile optimised", body: "Your listing looks great on every device, every screen size." },
+          ].map((item, i) => (
+            <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18 }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>{item.icon}</div>
+              <div style={{ fontWeight: 700, color: theme.text, fontSize: 14, marginBottom: 4 }}>{item.title}</div>
+              <div style={{ color: theme.textMuted, fontSize: 13, lineHeight: 1.6 }}>{item.body}</div>
             </div>
           ))}
         </div>
@@ -1502,14 +1622,14 @@ function ListYourFisheryTab() {
 
       {/* Contact form */}
       <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 28 }}>
-        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Get Listed</div>
-        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>Fill in your details and we'll be in touch within 24 hours to get your fishery set up.</div>
+        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 4 }}>Get Listed</div>
+        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>Fill in your details and we'll get your fishery set up within 48 hours.</div>
 
         {status === "success" ? (
           <div style={{ textAlign: "center", padding: "32px 0" }}>
-            <div style={{ fontSize: 40, marginBottom: 12 }}>✓</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: theme.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Enquiry Received</div>
-            <div style={{ color: theme.textMuted, fontSize: 14 }}>We'll be in touch within 24 hours to get your fishery listed.</div>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>✓</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: theme.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>You're on the list</div>
+            <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7 }}>We'll be in touch within 48 hours to get your fishery set up. Thank you for being part of Reel Big Fish.</div>
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -1526,7 +1646,7 @@ function ListYourFisheryTab() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               <div>
                 <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>FISHERY NAME *</div>
-                <input value={formData.fishery} onChange={e => set("fishery", e.target.value)} placeholder="e.g. Lechlade Fishery" style={inp} />
+                <input value={formData.fishery} onChange={e => set("fishery", e.target.value)} placeholder="e.g. Riverside Fishery" style={inp} />
               </div>
               <div>
                 <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>PHONE NUMBER</div>
@@ -1534,37 +1654,33 @@ function ListYourFisheryTab() {
               </div>
             </div>
             <div>
-              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 8 }}>PACKAGE INTEREST</div>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {tiers.map(t => (
-                  <button key={t.id} onClick={() => set("tier", t.id)}
-                    style={{ background: formData.tier === t.id ? t.color + "33" : theme.surface, color: formData.tier === t.id ? t.color : theme.textMuted, border: `1px solid ${formData.tier === t.id ? t.color : theme.border}`, borderRadius: 20, padding: "6px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600 }}>
-                    {t.name} — {t.price}
-                  </button>
-                ))}
-              </div>
+              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>REGION</div>
+              <select value={formData.region} onChange={e => set("region", e.target.value)} style={{ ...inp }}>
+                <option value="">Select your region...</option>
+                {["East Midlands","East of England","London","North East","North West","South East","South West","West Midlands","Yorkshire","Wales","Scotland","Northern Ireland"].map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
             </div>
             <div>
               <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>ANYTHING ELSE?</div>
-              <textarea value={formData.message} onChange={e => set("message", e.target.value)} placeholder="Tell us about your fishery, any questions about packages, or anything else..." rows={4} style={{ ...inp, resize: "vertical" }} />
+              <textarea value={formData.message} onChange={e => set("message", e.target.value)} placeholder="Tell us about your fishery, what makes it special, or any questions you have..." rows={4} style={{ ...inp, resize: "vertical" }} />
             </div>
             <button onClick={submit} disabled={!formData.name || !formData.email || !formData.fishery || status === "loading"}
-              style={{ background: !formData.name || !formData.email || !formData.fishery ? theme.border : theme.accent, color: !formData.name || !formData.email || !formData.fishery ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, transition: "all 0.2s" }}>
-              {status === "loading" ? "Sending..." : "Send Enquiry →"}
+              style={{ background: !formData.name || !formData.email || !formData.fishery ? theme.border : theme.accent, color: !formData.name || !formData.email || !formData.fishery ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "16px", cursor: !formData.name || !formData.email || !formData.fishery ? "not-allowed" : "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, transition: "all 0.2s" }}>
+              {status === "loading" ? "Sending..." : "Get Listed Free →"}
             </button>
-            {status === "error" && <div style={{ color: theme.danger, fontSize: 13, textAlign: "center" }}>Something went wrong. Please try again or email us directly.</div>}
+            {status === "error" && <div style={{ color: theme.danger, fontSize: 13, textAlign: "center" }}>Something went wrong. Please try again.</div>}
           </div>
         )}
       </div>
 
-      {/* Trust signals */}
+      {/* Simple reassurances */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
         {[
-          { title: "No contracts", body: "Month to month. Cancel or upgrade at any time with no lock-in." },
-          { title: "Setup included", body: "We build your listing for you. Just send us your details and photos." },
-          { title: "Real anglers", body: "Our audience is actively planning fishing trips — not passive browsers." },
+          { title: "100% free", body: "No credit card, no hidden costs, no commitment required." },
+          { title: "We do the work", body: "Send us your details and we'll build the listing for you." },
+          { title: "Real anglers", body: "Our audience is actively searching for venues like yours." },
         ].map((item, i) => (
-          <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18 }}>
+          <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18, textAlign: "center" }}>
             <div style={{ fontWeight: 700, color: theme.accent, fontSize: 14, marginBottom: 6 }}>{item.title}</div>
             <div style={{ color: theme.textMuted, fontSize: 13, lineHeight: 1.6 }}>{item.body}</div>
           </div>
@@ -1575,8 +1691,9 @@ function ListYourFisheryTab() {
 }
 
 export default function ReelBigFishApp() {
-  const [tab, setTab] = useState("forecast");
+  const [tab, setTab] = useState("home");
   const tabs = [
+    { id: "home",      label: "Home" },
     { id: "forecast",  label: "Forecast" },
     { id: "directory", label: "Venues" },
     { id: "planner",   label: "Trip Planner" },
@@ -1597,12 +1714,13 @@ export default function ReelBigFishApp() {
         @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)} }
         @keyframes fadeIn { from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)} }
         @keyframes slideUp { from{transform:translateY(100%)}to{transform:translateY(0)} }
+        @keyframes shimmer { 0%,100%{opacity:0.6} 50%{opacity:1} }
         button:hover { filter: brightness(1.1); }
       `}</style>
 
       {/* Header */}
       <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div onClick={() => setTab("home")} style={{ display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }}>
           <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${theme.accent}, ${theme.water})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 14, color: "#000", letterSpacing: -0.5 }}>RBF</div>
           <div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 20, color: theme.text, letterSpacing: -0.5 }}>Reel Big Fish</div>
@@ -1612,12 +1730,6 @@ export default function ReelBigFishApp() {
         <button onClick={() => setTab("list")} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap" }}>
           List Your Fishery
         </button>
-      </div>
-
-      {/* Sub banner */}
-      <div style={{ background: theme.surfaceAlt, borderBottom: `1px solid ${theme.border}`, padding: "10px 24px", display: "flex", alignItems: "center", gap: 8 }}>
-        <div style={{ width: 6, height: 6, borderRadius: "50%", background: theme.accent }} />
-        <span style={{ fontSize: 12, color: theme.textMuted }}>Free for all UK anglers — enter your postcode in Forecast for live local fishing conditions</span>
       </div>
 
       {/* Nav */}
@@ -1631,7 +1743,8 @@ export default function ReelBigFishApp() {
       </div>
 
       {/* Content */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: 24 }}>
+      <div style={{ maxWidth: tab === "home" ? "100%" : 900, margin: "0 auto", padding: tab === "home" ? 0 : 24 }}>
+        {tab === "home"      && <HomePage setTab={setTab} />}
         {tab === "forecast"  && <ForecastTab />}
         {tab === "directory" && <DirectoryTab />}
         {tab === "planner"   && <TripPlannerTab />}
