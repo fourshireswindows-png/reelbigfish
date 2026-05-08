@@ -564,7 +564,7 @@ function TripPlannerTab() {
   const [nights, setNights] = useState(1);
   const [tripPlan, setTripPlan] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [savedTrips, setSavedTrips] = useState([{ spot: "Lechlade & Bushyleaze", date: "Sat 9 May", nights: 2, score: 7.8, status: "Upcoming" }]);
+  const [savedTrips, setSavedTrips] = useState([]);
 
   const spot = selectedSpot !== null ? spotsData[selectedSpot] : null;
   const day = selectedDay !== null ? forecastData[selectedDay] : null;
@@ -1048,7 +1048,7 @@ function ReportTab() {
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ background: `linear-gradient(135deg, ${theme.accentDim}33, ${theme.waterDim}33)`, border: `1px solid ${theme.accent}44`, borderRadius: 16, padding: 24 }}>
         <div style={{ fontSize: 11, color: theme.accent, fontWeight: 700, letterSpacing: 2, marginBottom: 8 }}>MONTHLY REPORT</div>
-        <div style={{ fontSize: 28, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif" }}>May 2026</div>
+        <div style={{ fontSize: 28, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif" }}>{new Date().toLocaleString('en-GB', { month: 'long', year: 'numeric' })}</div>
         <div style={{ color: theme.textMuted, marginTop: 6, fontSize: 14 }}>Your comprehensive monthly guide to fishing conditions, species, techniques and regulations across the UK.</div>
       </div>
       {sections.map((s, i) => (
@@ -1071,13 +1071,7 @@ const categoryConfig = {
   "Beginners": { color: "#fb923c", icon: "🌱" },
 };
 
-const initialPosts = [
-  { id: 1, user: "CarpKing_Dave", avatar: "🎣", time: "12 mins ago", category: "Catch Reports", title: "PB Carp this morning at Lechlade!", body: "Just got home — absolutely buzzing. 38lb 6oz mirror carp on a snowman rig over a bed of hemp and corn at 5am. First proper session of the year and it delivered. Conditions were perfect — rising pressure, calm, 14°C air temp. The forecast on here called it bang on 🟢", likes: 24, replies: [{ user: "TenchTerry", avatar: "🐟", time: "8 mins ago", text: "Unreal fish mate! Was the water clear? Been thinking about heading down there this weekend." }, { user: "NightFisher_Ned", avatar: "🌙", time: "5 mins ago", text: "Beast of a fish! What hookbait? I've been struggling with pop-ups lately." }] },
-  { id: 2, user: "BeginnerBob", avatar: "🌱", time: "1 hour ago", category: "Ask a Question", title: "EA Rod Licence — do I need one for canals?", body: "Just getting into fishing and a bit confused about licences. Do I need an EA rod licence for canal fishing? And does my son aged 10 need one too? Any help appreciated, don't want to get in trouble on my first session!", likes: 7, replies: [{ user: "OxfordAngler", avatar: "🎣", time: "45 mins ago", text: "Yes you need one for canals — it covers all freshwater in England and Wales. Kids under 13 are exempt. Get it online at gov.uk, takes 2 mins. One rod licence is £33/year." }, { user: "MatchMan_Terry", avatar: "🏆", time: "30 mins ago", text: "What OxfordAngler said. Also worth getting the 2-rod version for £47 so you can use two rods later. Pays for itself quickly." }] },
-  { id: 3, user: "FlyFisher_Jane", avatar: "🪁", time: "2 hours ago", category: "Tackle Talk", title: "Best fly line for reservoir bank fishing?", body: "Looking to upgrade my fly line for Draycote Water. Currently using a WF6F but struggling to punch into headwinds and get decent distance for the bank fishing. Anyone using an intermediate or shooting head setup for reservoir work? Budget around £60.", likes: 11, replies: [{ user: "FlyTyerMike", avatar: "🎨", time: "1 hour ago", text: "Rio InTouch Camolux intermediate is the business for Draycote. Cuts through crosswinds much better than a floater. Around £55 and worth every penny." }] },
-  { id: 4, user: "BarbellHunter", avatar: "🌊", time: "3 hours ago", category: "Venue Tips", title: "River Avon at Evesham — what's fishing well right now?", body: "Planning a barbel session next weekend on the Avon at Evesham. River's been running well after the recent rain. Anyone fished it lately? What's the bait situation — hemp and pellet still the go-to or is meat working better in the coloured water?", likes: 9, replies: [{ user: "AvonAngler", avatar: "🏞️", time: "2 hours ago", text: "Was on it Tuesday. River is perfect right now — slightly coloured, good pace. Luncheon meat on a running lead in the crease produced 4 barbel best 9lb. Hemp groundbait still worth putting in but meat is the edge bait at the moment." }, { user: "WorcesterWade", avatar: "🎣", time: "1 hour ago", text: "Avoid the town bridge pegs at weekends — gets busy with dog walkers. The stretch 200 yards upstream is quieter and fishes better." }] },
-  { id: 5, user: "MatchAngler_Steve", avatar: "🏆", time: "5 hours ago", category: "General Chat", title: "Anyone else noticed the F1s going mad this week?", body: "Three sessions this week on commercial venues and the F1s have absolutely switched on. Barely touched bottom before getting a bite. Must be the water temperature hitting that sweet spot. Anyone else seeing the same? Method feeder at 8 metres has been deadly.", likes: 18, replies: [{ user: "PolerPaul", avatar: "🎣", time: "4 hours ago", text: "Same here at Ashmead — absolutely on fire. Pole at 11m with expanders, couldn't miss. Best match result of the season so far." }] },
-];
+const initialPosts = [];
 
 function CommunityTab() {
   const [posts, setPosts] = useState(initialPosts);
@@ -1157,6 +1151,15 @@ function CommunityTab() {
       </div>
 
       {/* Posts */}
+      {filtered.length === 0 && (
+        <div style={{ background: theme.surfaceAlt, border: `2px dashed ${theme.border}`, borderRadius: 16, padding: 40, textAlign: "center", marginTop: 8 }}>
+          <div style={{ fontSize: 36, marginBottom: 12 }}>💬</div>
+          <div style={{ fontWeight: 700, color: theme.text, fontSize: 16, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>No posts yet</div>
+          <div style={{ color: theme.textMuted, fontSize: 14, marginBottom: 20 }}>Be the first to start a discussion. Share a catch report, ask a question, or give venue advice.</div>
+          <button onClick={() => setShowNewPost(true)} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 10, padding: "10px 24px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 13 }}>Start the conversation</button>
+        </div>
+      )}
+
       {filtered.map(post => {
         const catCfg = categoryConfig[post.category] || categoryConfig["General Chat"];
         const isExpanded = expandedPost === post.id;
@@ -1231,31 +1234,20 @@ function CommunityTab() {
 }
 
 const forumCategories = [
-  { id: "carp", name: "Carp Fishing", desc: "Tactics, bait, rigs, venues and specimen hunting", icon: "🐟", color: "#e67e22", threads: 142, posts: 1847, latest: { user: "CarpKing_Dave", time: "4 mins ago", title: "Zig rig depths — how are you finding them this week?" } },
-  { id: "match", name: "Match & Commercial", desc: "Match fishing, F1s, commercials, leagues and results", icon: "🏆", color: "#2dd87a", threads: 98, posts: 1203, latest: { user: "MatchMan_Terry", time: "22 mins ago", title: "Method feeder vs inline flat — which is winning right now?" } },
-  { id: "pike", name: "Pike & Predator", desc: "Pike, perch, zander — lure fishing, deadbaiting, specimen work", icon: "🦷", color: "#e74c3c", threads: 76, posts: 891, latest: { user: "PikePeter", time: "1 hour ago", title: "Best deadbait presentation for still water?" } },
-  { id: "coarse", name: "General Coarse", desc: "Roach, bream, tench, chub, barbel and everything in between", icon: "🎣", color: "#1a9cc7", threads: 113, posts: 1456, latest: { user: "BarbellHunter", time: "2 hours ago", title: "River Avon barbel — pre-season prep" } },
-  { id: "sea", name: "Sea Fishing", desc: "Shore, boat, estuary — bass, cod, mackerel and more", icon: "🌊", color: "#0e6a8a", threads: 54, posts: 612, latest: { user: "ShoreFisher_Sam", time: "3 hours ago", title: "Bass off the rocks — Devon recommendations?" } },
-  { id: "fly", name: "Fly Fishing", desc: "Trout, grayling, salmon — fly tying, technique and venues", icon: "🪁", color: "#a78bfa", threads: 67, posts: 743, latest: { user: "FlyFisher_Jane", time: "5 hours ago", title: "Dry fly patterns working well on limestone streams in May" } },
-  { id: "tackle", name: "Tackle & Equipment", desc: "Rods, reels, lines, bivvies — reviews and recommendations", icon: "🔧", color: "#d4a72c", threads: 189, posts: 2341, latest: { user: "TackleHead_Jim", time: "30 mins ago", title: "Daiwa vs Shimano reels at the £100 price point — honest comparison" } },
-  { id: "beginners", name: "Beginners Corner", desc: "New to fishing? Ask anything — no question too basic", icon: "🌱", color: "#7ac943", threads: 203, posts: 2109, latest: { user: "BeginnerBob", time: "15 mins ago", title: "What is a hair rig and how do I tie one?" } },
-  { id: "venues", name: "Venue Reviews", desc: "Tell us about where you fish — honest member reviews", icon: "📍", color: "#fb923c", threads: 156, posts: 1678, latest: { user: "OxfordAngler", time: "6 hours ago", title: "Lechlade Bushyleaze — full review after my spring trip" } },
-  { id: "rules", name: "Rules, Regulations & Law", desc: "EA licences, close seasons, bylaws and your rights", icon: "📋", color: "#7a9a82", threads: 41, posts: 389, latest: { user: "RegulationRon", time: "1 day ago", title: "Can I fish the Thames at night without a permit?" } },
+  { id: "carp",      name: "Carp Fishing",        desc: "Tactics, bait, rigs, venues and specimen hunting",             icon: "🐟", color: "#e67e22", threads: 0, posts: 0, latest: null },
+  { id: "match",     name: "Match & Commercial",   desc: "Match fishing, F1s, commercials, leagues and results",         icon: "🏆", color: "#2dd87a", threads: 0, posts: 0, latest: null },
+  { id: "pike",      name: "Pike & Predator",      desc: "Pike, perch, zander — lures, deadbaiting, specimen work",      icon: "🦷", color: "#e74c3c", threads: 0, posts: 0, latest: null },
+  { id: "coarse",    name: "General Coarse",       desc: "Roach, bream, tench, chub, barbel and everything in between",  icon: "🎣", color: "#1a9cc7", threads: 0, posts: 0, latest: null },
+  { id: "sea",       name: "Sea Fishing",          desc: "Shore, boat, estuary — bass, cod, mackerel and more",          icon: "🌊", color: "#0e6a8a", threads: 0, posts: 0, latest: null },
+  { id: "fly",       name: "Fly Fishing",          desc: "Trout, grayling, salmon — fly tying, technique and venues",    icon: "🪁", color: "#a78bfa", threads: 0, posts: 0, latest: null },
+  { id: "tackle",    name: "Tackle & Equipment",   desc: "Rods, reels, lines, bivvies — reviews and recommendations",    icon: "🔧", color: "#d4a72c", threads: 0, posts: 0, latest: null },
+  { id: "beginners", name: "Beginners Corner",     desc: "New to fishing? Ask anything — no question too basic",         icon: "🌱", color: "#7ac943", threads: 0, posts: 0, latest: null },
+  { id: "venues",    name: "Venue Reviews",        desc: "Tell us about where you fish — honest member reviews",         icon: "📍", color: "#fb923c", threads: 0, posts: 0, latest: null },
+  { id: "rules",     name: "Rules & Regulations",  desc: "EA licences, close seasons, bylaws and your rights",           icon: "📋", color: "#7a9a82", threads: 0, posts: 0, latest: null },
 ];
 
 const threadData = {
-  carp: [
-    { id: 1, title: "Zig rig depths — how are you finding them this week?", user: "CarpKing_Dave", time: "4 mins ago", replies: 8, views: 124, pinned: false, body: "Been experimenting with zig depths since the water started warming. Went from 4ft down to 6ft yesterday morning and the takes stopped completely. Moved back up to 3ft and had three fish before 9am. Anyone else finding the fish really shallow right now?", posts: [{ user: "NightFisher_Ned", time: "2 mins ago", body: "Same experience here at Billing — fish are sitting high in the water column. 2.5ft depth was the sweet spot for me on Monday. I think as the water warms through 14°C they come up even more." }, { user: "SpecimenMike", time: "1 min ago", body: "Try surface fishing on a warm, calm evening. If you can see them cruising, a piece of crust beats a zig every time when the water is this warm." }] },
-    { id: 2, title: "Personal best — 44lb 2oz common from Wraysbury", user: "SouthernCarpLad", time: "2 hours ago", replies: 23, views: 412, pinned: false, body: "Still shaking typing this. 44lb 2oz common from Wraysbury yesterday evening. Single bottom bait on a chod rig over 2 kgs of spod mix. 7 year journey to crack this venue. Screamed off at 2:17am. Absolutely unreal fish.", posts: [{ user: "CarpKing_Dave", time: "1 hour ago", body: "Absolute monster! Congratulations mate, that's a career fish. The Wraysbury commons are some of the best looking fish in the country. Rightly earned." }] },
-    { id: 3, title: "Mainline vs Sticky Baits in 2026 — which would you choose?", user: "BaitGeek", time: "4 hours ago", replies: 31, views: 567, pinned: false, body: "Genuinely torn at the moment. I've had brilliant results on Mainline Cell this spring but a mate keeps banging on about Sticky Baits Manilla and the results he's getting. Anyone done a proper back-to-back comparison? Budget isn't really an issue, I want the edge bait.", posts: [] },
-  ],
-  beginners: [
-    { id: 4, title: "What is a hair rig and how do I tie one?", user: "BeginnerBob", time: "15 mins ago", replies: 4, views: 67, pinned: false, body: "Complete beginner here. Everyone keeps talking about hair rigs for carp but I don't really understand what they are or why they're better than just putting bait on the hook. Can anyone explain and maybe show how to tie one?", posts: [{ user: "CarpKing_Dave", time: "10 mins ago", body: "Great question! A hair rig is where the bait (boilie, corn etc) is attached to a short length of line (the 'hair') that extends behind the hook, rather than being on the hook itself. This means when the fish sucks in the bait, the hook is free to turn and catch in the lip — much more effective and also kinder as the hook hold is better. YouTube 'knotless knot hair rig' and you'll find it in 5 minutes." }, { user: "MatchMan_Terry", time: "5 mins ago", body: "Dave's right. For your first one, use a size 8 hook, about 4 inches of 15lb hooklink, and a boilie needle to thread the bait. Once you've done it twice it takes 2 minutes to tie." }] },
-    { id: 5, title: "Do I need different gear for river vs lake fishing?", user: "NewToThis_2026", time: "3 hours ago", replies: 7, views: 89, pinned: true, body: "Just starting out and trying to understand if I need different tackle for rivers vs lakes. I've got a basic starter kit — is it suitable for both?", posts: [] },
-  ],
-  tackle: [
-    { id: 6, title: "Daiwa vs Shimano reels at the £100 price point — honest comparison", user: "TackleHead_Jim", time: "30 mins ago", replies: 14, views: 203, pinned: false, body: "Just done a 6-month back to back test of the Daiwa Crosscast 5000 vs the Shimano Baitrunner DL 6000. Both sitting around the £100 mark. Here's my honest take...", posts: [{ user: "ReelDeal_Rob", time: "20 mins ago", body: "Shimano for longevity in my experience. The Baitrunner mechanism is just more reliable over time. But Daiwa often has the edge on cast distance with their ABS spool." }] },
-  ],
+  carp: [], match: [], pike: [], coarse: [], sea: [], fly: [], tackle: [], beginners: [], venues: [], rules: [],
 };
 
 function ForumTab() {
@@ -1298,7 +1290,7 @@ function ForumTab() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
         <div>
           <div style={{ fontSize: 22, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif" }}>Fishing Forum</div>
-          <div style={{ fontSize: 13, color: theme.textMuted }}>{forumCategories.reduce((a, c) => a + c.threads, 0).toLocaleString()} threads · {forumCategories.reduce((a, c) => a + c.posts, 0).toLocaleString()} posts</div>
+          <div style={{ fontSize: 13, color: theme.textMuted }}>{forumCategories.reduce((a, c) => a + c.threads, 0)} threads · {forumCategories.reduce((a, c) => a + c.posts, 0)} posts — be the first to post</div>
         </div>
       </div>
 
@@ -1310,7 +1302,7 @@ function ForumTab() {
               <div style={{ fontWeight: 700, color: theme.text, fontSize: 15, marginBottom: 2 }}>{cat.name}</div>
               <div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 6 }}>{cat.desc}</div>
               <div style={{ fontSize: 11, color: theme.textMuted }}>
-                <span style={{ color: cat.color, fontWeight: 600 }}>{cat.latest.user}</span> · {cat.latest.time} · <em style={{ color: theme.textMuted }}>{cat.latest.title.slice(0, 50)}{cat.latest.title.length > 50 ? "..." : ""}</em>
+                {cat.latest ? <><span style={{ color: cat.color, fontWeight: 600 }}>{cat.latest.user}</span> · {cat.latest.time} · <em style={{ color: theme.textMuted }}>{cat.latest.title.slice(0, 50)}{cat.latest.title.length > 50 ? "..." : ""}</em></> : <em>No posts yet — be the first</em>}
               </div>
             </div>
             <div style={{ textAlign: "right", flexShrink: 0, display: "flex", flexDirection: "column", gap: 4 }}>
@@ -1435,7 +1427,6 @@ export default function ReelBigFishApp() {
   const [tab, setTab] = useState("forecast");
   const tabs = [
     { id: "forecast", label: "Forecast" },
-    { id: "directory", label: "Venues" },
     { id: "planner", label: "Trip Planner" },
     { id: "forum", label: "Forum" },
     { id: "community", label: "Community" },
@@ -1457,7 +1448,7 @@ export default function ReelBigFishApp() {
       `}</style>
       <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${theme.accent}, ${theme.water})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>🎣</div>
+          <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${theme.accent}, ${theme.water})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 14, color: "#000", letterSpacing: -0.5 }}>RBF</div>
           <div><div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 20, color: theme.text, letterSpacing: -0.5 }}>Reel Big Fish</div><div style={{ fontSize: 11, color: theme.textMuted, marginTop: -2 }}>UK Fishing Membership</div></div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -1465,9 +1456,9 @@ export default function ReelBigFishApp() {
           <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 20, padding: "4px 14px", fontSize: 12, color: theme.textMuted }}>£4.99/mo</div>
         </div>
       </div>
-      <div style={{ background: `linear-gradient(90deg, ${theme.excellent}22, ${theme.water}11)`, borderBottom: `1px solid ${theme.accent}33`, padding: "10px 24px", display: "flex", alignItems: "center", gap: 20 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: theme.excellent, boxShadow: `0 0 8px ${theme.excellent}` }} /><span style={{ fontSize: 13, fontWeight: 700, color: theme.excellent }}>EXCELLENT CONDITIONS TODAY</span></div>
-        <span style={{ fontSize: 12, color: theme.textMuted }}>Score 9.2/10 · Best window 06:00–09:00 · Target: Carp, Bream, Tench</span>
+      <div style={{ background: theme.surfaceAlt, borderBottom: `1px solid ${theme.border}`, padding: "10px 24px", display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ width: 6, height: 6, borderRadius: "50%", background: theme.accent }} />
+        <span style={{ fontSize: 12, color: theme.textMuted }}>Enter your postcode in Forecast for your local 7-day fishing conditions</span>
       </div>
       <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "0 24px", display: "flex", gap: 4, overflowX: "auto" }}>
         {tabs.map(t => <button key={t.id} onClick={() => setTab(t.id)} style={{ background: "none", border: "none", borderBottom: `2px solid ${tab === t.id ? theme.accent : "transparent"}`, color: tab === t.id ? theme.accent : theme.textMuted, padding: "14px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600, transition: "all 0.2s", whiteSpace: "nowrap" }}>{t.label}</button>)}
