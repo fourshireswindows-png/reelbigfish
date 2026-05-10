@@ -17,42 +17,9 @@ const forecastData = [
   { day: "Thursday", date: "Thu 14 May", rating: "Excellent", score: 8.9, pressure: "High", moon: "Waning Gibbous", wind: "SE 6mph", temp: "17°C", waterTemp: "13°C", bestTime: "Dawn to Dusk — prime conditions", species: ["Carp", "Tench", "Perch", "Bream"], bait: "Boilies, Sweetcorn, Worms", tidal: "High: 13:38" },
 ];
 
-const directoryData = {
-  "Oxfordshire": [
-    { id: 1, name: "Farmoor Reservoir", town: "Farmoor, Oxford", type: "Reservoir", pegs: 40, species: ["Trout", "Pike", "Perch", "Bream"], dayTicket: "£15", eveningTicket: "£10", nightFishing: false, rating: 4.6, reviews: 47, campsite: "Farmoor Camping & Caravanning", campsiteDistance: "2.1 miles", campsitePrice: "£18/night", facilities: ["Car park", "Toilets", "Disabled access", "Café nearby"], rules: ["Barbless hooks only", "No braid mainline", "No keepnets for trout", "Max 2 rods"], season: "Open all year", recordFish: "Pike 28lb 4oz", description: "One of Oxfordshire's premier fishing venues, Farmoor Reservoir sits just 5 miles west of Oxford. The vast open water holds excellent stocks of rainbow and brown trout plus a healthy head of specimen pike. Bank fishing is available from designated areas around the entire reservoir perimeter. Dawn sessions in spring are particularly productive for both trout and pike.", comments: [{ user: "CarpKing_Dave", date: "2 days ago", rating: 5, text: "Absolutely cracking session yesterday morning. Had 4 rainbows before 9am on a black buzzer. Water clarity is excellent right now, fish are active in the margins." }, { user: "OxfordAngler", date: "1 week ago", rating: 4, text: "Good pike session on the north bank. Two fish, best 19lb on a roach deadbait. Car park gets busy weekends so arrive early." }, { user: "FlyFisher_Jane", date: "2 weeks ago", rating: 5, text: "Best trout venue in the county for fly fishing. The evening rise in May is something special. Well worth the day ticket." }] },
-    { id: 2, name: "Clattercote Reservoir", town: "Clattercote, Banbury", type: "Reservoir", pegs: 28, species: ["Bream", "Tench", "Roach", "Carp", "Perch"], dayTicket: "£8", eveningTicket: "£5", nightFishing: true, rating: 4.1, reviews: 23, campsite: "Clattercote Farm Camping", campsiteDistance: "0.3 miles", campsitePrice: "£12/night", facilities: ["Car park", "Basic toilets", "Fire pits allowed"], rules: ["Carp must be returned", "No boilies April–June", "Night fishing by arrangement", "Unhooking mats compulsory"], season: "March–November", recordFish: "Bream 9lb 12oz", description: "A hidden gem tucked away in north Oxfordshire near the Warwickshire border. Clattercote is a shallow, reed-fringed reservoir averaging around 4 feet deep with extensive lily pad growth on the southern bank. The resident bream shoals are enormous — match anglers regularly bag 50lb+ of bream on method feeder tactics. Tench to 7lb have been recorded.", comments: [{ user: "MatchMan_Terry", date: "3 days ago", rating: 4, text: "110lb of bream and roach in 5 hours on Saturday. The swim opposite the island is a banker — fish pile in as soon as you start feeding. Brilliant value at £8." }, { user: "TenchFanatic", date: "3 weeks ago", rating: 5, text: "Caught my personal best tench here — 7lb 2oz on sweetcorn over groundbait. Very early morning, first two hours of light. Magical venue." }] },
-    { id: 3, name: "Oxford Canal — Thrupp", town: "Thrupp, Kidlington", type: "Canal", pegs: 60, species: ["Roach", "Perch", "Bream", "Chub", "Pike"], dayTicket: "EA Licence only", eveningTicket: "Free", nightFishing: false, rating: 4.0, reviews: 31, campsite: "Thrupp Lakeside Park", campsiteDistance: "0.8 miles", campsitePrice: "£20/night", facilities: ["Free parking", "Pubs nearby", "Accessible towpath"], rules: ["EA rod licence required", "No night fishing on towpath", "Respect other canal users"], season: "Open all year (no river close season on canal)", recordFish: "Chub 5lb 3oz", description: "The Oxford Canal through the pretty village of Thrupp offers classic English canal fishing at its finest. The section from Thrupp down to Kidlington holds strong populations of roach, perch and chub. The famous Thrupp pub makes this an excellent all-day venue. Best fished on the float with maggots or casters, the canal responds well to regular loose feeding.", comments: [{ user: "CanalKing", date: "5 days ago", rating: 4, text: "Lovely morning session. Caught 30+ roach on stick float with maggot. The section below the boatyard is the pick of the stretches." }, { user: "BeginnerBob", date: "1 week ago", rating: 4, text: "Took my 8 year old daughter. She caught her first fish here — a lovely little perch. Great accessible venue for families." }] },
-  ],
-  "Gloucestershire": [
-    { id: 4, name: "Lechlade & Bushyleaze Trout Fishery", town: "Lechlade-on-Thames", type: "Lake", pegs: 35, species: ["Carp", "Tench", "Bream", "Roach", "Pike"], dayTicket: "£12", eveningTicket: "£8", nightFishing: true, rating: 4.8, reviews: 89, campsite: "Lechlade on Thames Leisure", campsiteDistance: "0.5 miles", campsitePrice: "£22/night", facilities: ["Car park", "Toilets & showers", "Tackle shop on site", "Café"], rules: ["Unhooking mats mandatory", "No boilies containing nuts", "Slings required for carp over 10lb", "Two rods maximum"], season: "Open all year", recordFish: "Carp 43lb 7oz", description: "Arguably the finest carp and tench fishery in the Cotswolds. Set against the backdrop of the Thames Valley, Lechlade & Bushyleaze is a crystal-clear gravel pit complex offering some of the most challenging and rewarding fishing in the South West. The main lake holds carp to over 40lb alongside a stunning head of large tench. Gin-clear water demands finesse tactics.", comments: [{ user: "CarpSpecialist_Rich", date: "1 day ago", rating: 5, text: "Just back from a 48hr session. Three carp — 31lb, 27lb and a stunning 38lb mirror. The water is gin clear right now, zig rigs have been deadly at 6ft depth. Absolutely world class venue." }, { user: "TenchTerry", date: "4 days ago", rating: 5, text: "Six tench in a morning session, best 8lb 3oz. The southern bay is on fire for tench right now on worm and caster over groundbait. May is the month here without question." }, { user: "WeekendWarrior", date: "2 weeks ago", rating: 4, text: "Beautiful venue. The camping on site is great — woke up to mist over the lake at 5am and had the whole place to myself for an hour. Magical." }] },
-    { id: 5, name: "Coln Valley Fishery", town: "Fairford, Gloucestershire", type: "Lake Complex", pegs: 50, species: ["Carp", "F1 Carp", "Tench", "Bream", "Roach"], dayTicket: "£10", eveningTicket: "£7", nightFishing: false, rating: 4.3, reviews: 55, campsite: "Cotswold Camping Fairford", campsiteDistance: "1.5 miles", campsitePrice: "£16/night", facilities: ["Large car park", "Toilets", "Disabled swims available", "Bait shop"], rules: ["Barbless hooks only", "No nuts or tiger nuts", "No fixed leads", "Night fishing not permitted"], season: "Open all year", recordFish: "Carp 29lb 2oz", description: "A family-friendly commercial fishery set in the rolling Gloucestershire countryside near Fairford. The Coln Valley complex comprises three lakes: the Main Lake for specimen carp, the Match Lake for F1s and silvers, and the Pleasure Lake for beginners. Well-managed and heavily stocked, this is an ideal venue for anyone wanting guaranteed sport.", comments: [{ user: "FamilyFisher", date: "3 days ago", rating: 4, text: "Took the kids on Saturday. The pleasure lake was perfect — they both caught within 10 minutes. Friendly staff and well maintained facilities." }, { user: "MatchAngler_Steve", date: "1 week ago", rating: 5, text: "Won the club match here last Sunday with 87lb of F1s on the method feeder. The match lake is absolutely stacked. One to keep on the circuit." }] },
-    { id: 6, name: "River Severn — Tewkesbury", town: "Tewkesbury", type: "River", pegs: 45, species: ["Barbel", "Chub", "Pike", "Roach", "Dace", "Perch"], dayTicket: "£6", eveningTicket: null, nightFishing: false, rating: 4.4, reviews: 38, campsite: "Tewkesbury Abbey Caravan Club", campsiteDistance: "0.4 miles", campsitePrice: "£25/night", facilities: ["Car park", "Toilets", "Accessible platforms"], rules: ["EA licence required", "No keepnets for barbel or chub", "River opens 16th June"], season: "16 June – 14 March", recordFish: "Barbel 14lb 1oz", description: "The River Severn at Tewkesbury is one of England's finest barbel rivers with a well-deserved reputation for producing large fish. The stretch around the town bridge holds exceptional chub and barbel in the deep, powerful flow. Hemp and tares in summer, cheesepaste and meat in winter. The confluence of the Avon and Severn creates a variety of swims from slack water to powerful glides.", comments: [{ user: "BarbellBrian", date: "6 days ago", rating: 5, text: "River is fishing brilliantly after the recent rains. Four barbel session yesterday best 11lb 8oz on pellet feeder in the main flow. The Severn in May is something else." }, { user: "ChubChaser", date: "2 weeks ago", rating: 4, text: "Good chub session on the inside line. Six fish to 4lb 9oz on crust. River running slightly coloured which suits the chub perfectly." }] },
-  ],
-  "Warwickshire": [
-    { id: 7, name: "Ashmead Lake", town: "Leamington Spa", type: "Commercial Lake", pegs: 42, species: ["Carp", "F1 Carp", "Ide", "Roach", "Skimmers"], dayTicket: "£10", eveningTicket: "£7", nightFishing: false, rating: 4.4, reviews: 62, campsite: "Warwick Racecourse Camping", campsiteDistance: "3.4 miles", campsitePrice: "£20/night", facilities: ["Large car park", "Modern toilets", "On-site café", "Tackle hire available"], rules: ["Barbless only", "No groundbait in margins before 10am", "Max 2 rods", "Landing nets compulsory"], season: "Open all year", recordFish: "Carp 26lb 14oz", description: "A well-established commercial fishery on the outskirts of Leamington Spa. Ashmead is renowned on the local match circuit for its consistent sport and well-managed swims. The pegged lake is heavily stocked with F1 carp, ide and roach making it ideal for pole and waggler anglers. The specimen lake holds larger carp for those seeking a bigger challenge.", comments: [{ user: "PolerPaul", date: "1 day ago", rating: 5, text: "Won yesterday's club match with 68lb on the pole at 11 metres. F1s were queuing up all day. The café does a great breakfast too — arrived at 7am, fished until 3pm, perfect day." }, { user: "WarwickAngler", date: "5 days ago", rating: 4, text: "Good solid session. The ide are back in numbers now the water has warmed. Surface fishing produced 12 fish in the last hour. Great venue." }] },
-    { id: 8, name: "Kingsbury Water Park", town: "Kingsbury, Tamworth", type: "Lake Complex", pegs: 80, species: ["Pike", "Perch", "Bream", "Tench", "Carp", "Roach"], dayTicket: "£8", eveningTicket: null, nightFishing: false, rating: 4.2, reviews: 44, campsite: "Kingsbury Water Park Camping", campsiteDistance: "On site", campsitePrice: "£22/night", facilities: ["Multiple car parks", "Visitor centre", "Café & toilets", "Disabled access throughout"], rules: ["EA licence required for some lakes", "Pike to be returned immediately", "No bait boats"], season: "Open all year on most lakes", recordFish: "Pike 31lb 6oz", description: "A stunning country park and nature reserve comprising over 30 lakes of varying sizes near Tamworth. Kingsbury offers something for every angler — from heavily stocked match lakes to wild, reed-fringed specimen waters. The pike fishing is exceptional in winter, while summer produces excellent tench and bream sport. The on-site campsite makes it perfect for overnight trips.", comments: [{ user: "PikePeter", date: "1 week ago", rating: 5, text: "The pike fishing here is outstanding. Three fish over 20lb in a morning session on the main reservoir. Use large smelt or mackerel deadbaits and you're in business." }, { user: "FamilyDayOut", date: "2 weeks ago", rating: 4, text: "Great day out with the family. Kids loved the nature reserve. Fishing was good too — plenty of small perch and roach to keep them entertained all day." }] },
-    { id: 9, name: "Draycote Water", town: "Rugby", type: "Reservoir", pegs: 55, species: ["Rainbow Trout", "Brown Trout", "Pike", "Perch"], dayTicket: "£28 (5 fish)", eveningTicket: "£20 (3 fish)", nightFishing: false, rating: 4.5, reviews: 71, campsite: "Draycote Meadows Campsite", campsiteDistance: "1.2 miles", campsitePrice: "£19/night", facilities: ["Boat hire available", "Fishing lodge & café", "Tackle shop", "Disabled jetties"], rules: ["Fly fishing only for trout", "All pike to be returned", "Boats available for hire", "No keepnets"], season: "1 March – 31 October (trout). Pike all year.", recordFish: "Rainbow Trout 13lb 2oz", description: "One of the Midlands' premier fly fishing reservoirs covering 600 acres. Draycote Water is managed specifically for high-quality trout fishing with both bank and boat options. The reservoir is regularly stocked with rainbow and brown trout from 2lb upwards. Bank fishing from designated areas around the dam and northern shore. Boat hire adds a new dimension and allows access to productive midwater areas.", comments: [{ user: "FlyTyerMike", date: "2 days ago", rating: 5, text: "Brilliant session from the boat yesterday. Eight rainbows on a damsel nymph pattern, best around 4lb. The fish are right up in the top 3 feet in this warm weather. Dries working well in the evenings." }, { user: "ReservoirRod", date: "1 week ago", rating: 4, text: "Good bank session near the dam wall. Four fish to 3lb 8oz on a black and green blob. The café is excellent — perfect end to the session." }] },
-  ],
-  "Worcestershire": [
-    { id: 10, name: "River Avon — Evesham", town: "Evesham", type: "River", pegs: 70, species: ["Barbel", "Chub", "Bream", "Roach", "Pike", "Perch"], dayTicket: "£6", eveningTicket: null, nightFishing: false, rating: 4.6, reviews: 83, campsite: "Evesham Caravan Park", campsiteDistance: "0.6 miles", campsitePrice: "£18/night", facilities: ["Town centre access", "Multiple car parks", "Cafés and shops nearby"], rules: ["EA licence required", "River season 16 June – 14 March", "No keepnets for barbel"], season: "16 June – 14 March", recordFish: "Barbel 15lb 9oz", description: "The River Avon through Evesham town is one of the most famous barbel and bream venues in the West Midlands. The deep, slow-moving river through town contains enormous shoals of bream averaging 4–6lb, plus a renowned barbel population that has produced fish well into double figures. The town stretch is easily accessible and well signposted from the market square.", comments: [{ user: "AvonAngler", date: "3 days ago", rating: 5, text: "The bream are in! Had 14 fish in 4 hours yesterday on method feeder, best 6lb 4oz. The swim near the footbridge is absolutely stacked right now." }, { user: "BarbellHunter", date: "1 week ago", rating: 5, text: "Two barbel in the dark last night, 9lb and 11lb 6oz. Hemp and pellet feeder on the near-side crease. The Avon is absolutely fishing its head off at the moment." }] },
-    { id: 11, name: "Tardebigge Reservoir", town: "Bromsgrove", type: "Reservoir", pegs: 22, species: ["Carp", "Tench", "Bream", "Roach", "Perch"], dayTicket: "£9", eveningTicket: null, nightFishing: false, rating: 4.0, reviews: 19, campsite: "Avoncroft Camping", campsiteDistance: "2.8 miles", campsitePrice: "£14/night", facilities: ["Car park", "Basic facilities", "Canal boat traffic adds character"], rules: ["Barbless only", "Max 2 rods", "No boilies", "Float and feeder fishing only"], season: "April–October", recordFish: "Tench 6lb 8oz", description: "A picturesque canal reservoir near Bromsgrove on the Worcestershire-Warwickshire border. Tardebigge feeds the famous Tardebigge flight of canal locks and offers tranquil, unhurried fishing in a beautiful rural setting. The reservoir holds a good head of tench and bream alongside roach and perch. Ideal for anglers who prefer a quieter, more traditional fishing experience away from commercial venues.", comments: [{ user: "QuietWaters", date: "2 weeks ago", rating: 4, text: "Just what I needed. Three hours of float fishing for roach and perch with barely another angler in sight. Simple, peaceful, proper fishing." }] },
-    { id: 12, name: "Croome Court Lake", town: "Severn Stoke, Worcester", type: "Estate Lake", pegs: 18, species: ["Carp", "Pike", "Perch", "Roach", "Tench"], dayTicket: "£14", eveningTicket: null, nightFishing: false, rating: 4.7, reviews: 28, campsite: "Croome Camping", campsiteDistance: "On site", campsitePrice: "£20/night", facilities: ["Historic parkland setting", "Car park", "Toilets"], rules: ["Advance booking required", "Carp to be returned immediately", "No bait boats", "Single hook rigs only"], season: "May–October", recordFish: "Carp 36lb 11oz", description: "One of the most beautiful and exclusive fishing venues in the Midlands. The Croome Court lake sits within the historic National Trust parkland designed by Capability Brown and offers a genuinely unique fishing experience. Limited tickets ensure the water is never overcrowded. The estate lake holds a stunning head of old, dark-scaled carp alongside quality pike and perch.", comments: [{ user: "EstateAngler", date: "1 week ago", rating: 5, text: "Booked in advance as required and had the lake virtually to myself. Caught a dark, old mirror of 28lb in the most beautiful surroundings imaginable. Worth every penny of the £14." }, { user: "HeritageHooker", date: "3 weeks ago", rating: 5, text: "This place is absolutely unique. Capability Brown-designed parkland, deer in the background, and a 34lb carp on the bank by 7am. Fishing doesn't get better than this." }] },
-  ],
-  "Northamptonshire": [
-    { id: 13, name: "Billing Aquadrome", town: "Northampton", type: "Lake Complex", pegs: 90, species: ["Carp", "Pike", "Bream", "Roach", "Tench", "Perch"], dayTicket: "£9", eveningTicket: "£6", nightFishing: true, rating: 4.1, reviews: 56, campsite: "Billing Aquadrome Holiday Park", campsiteDistance: "On site", campsitePrice: "£28/night", facilities: ["Full holiday park facilities", "Restaurant & bar", "Tackle shop", "Toilets & showers"], rules: ["Night fishing on designated lakes only", "Bait boats permitted on some lakes", "Carp care kit required for night fishing"], season: "Open all year", recordFish: "Carp 41lb 3oz", description: "A large holiday and leisure complex near Northampton offering fishing across multiple lakes within a full holiday park setting. Billing is popular with families who want to mix fishing with other activities. The specimen lake holds some outstanding carp including fish over 40lb. Night fishing is available on booking. The on-site holiday park makes it ideal for a full fishing holiday.", comments: [{ user: "NightFisher_Ned", date: "4 days ago", rating: 4, text: "Two nights on the specimen lake. Four carp, best 29lb. The nocturnal feeding is well worth the night ticket. Comfortable facilities make the night session easy." }, { user: "FamilyTrip", date: "1 week ago", rating: 4, text: "Wife and kids used the holiday park while I fished. Everyone happy. Good fishing, great facilities, worked brilliantly as a family holiday." }] },
-    { id: 14, name: "Naseby Reservoir", town: "Naseby", type: "Reservoir", pegs: 30, species: ["Roach", "Perch", "Pike", "Bream", "Tench"], dayTicket: "£7", eveningTicket: null, nightFishing: false, rating: 3.9, reviews: 17, campsite: "Naseby Battlefield Campsite", campsiteDistance: "1.1 miles", campsitePrice: "£12/night", facilities: ["Car park", "Basic toilets", "Historic location"], rules: ["EA licence required", "No night fishing", "No bait boats"], season: "Open all year", recordFish: "Pike 24lb 8oz", description: "A historic reservoir near the famous English Civil War battlefield site of Naseby. The reservoir is a well-kept secret among local anglers offering quality roach and perch fishing alongside some exceptional pike sport in autumn and winter. The rural Northamptonshire setting is beautiful and the venue rarely gets overcrowded.", comments: [{ user: "HistoryBuff_Angler", date: "3 weeks ago", rating: 4, text: "What a lovely venue. Quiet, peaceful and great fishing. Had eight quality roach to 1lb 4oz on stick float. The pike in winter are supposedly outstanding — will be back." }] },
-  ],
-  "Yorkshire": [
-    { id: 15, name: "Wintersett Reservoir", town: "Wakefield", type: "Reservoir", pegs: 48, species: ["Bream", "Tench", "Roach", "Perch", "Pike", "Carp"], dayTicket: "£7", eveningTicket: null, nightFishing: false, rating: 4.3, reviews: 41, campsite: "Nostell Priory Camping", campsiteDistance: "3.2 miles", campsitePrice: "£17/night", facilities: ["Car park", "Toilets", "Country park setting"], rules: ["EA licence required", "Barbless hooks only on match pegs", "No night fishing"], season: "Open all year", recordFish: "Bream 11lb 4oz", description: "A productive West Yorkshire reservoir near Wakefield with an outstanding reputation for quality bream and tench fishing. Wintersett is one of the region's most consistent match venues and has produced some exceptional specimen bream over the years. The reservoir is set within a lovely country park with waymarked walks around the perimeter.", comments: [{ user: "YorksBream", date: "5 days ago", rating: 4, text: "Method feeder session yesterday. 8 bream from 3lb to 6lb 8oz in 4 hours. Classic reservoir fishing. The fish are well away from the bank so a long cast is essential." }, { user: "NorthernLad", date: "2 weeks ago", rating: 5, text: "Yorkshire's best kept secret. Beautiful bream to nearly 10lb last weekend on the open-end feeder. Barely anyone on the bank — absolute pleasure." }] },
-    { id: 16, name: "Rother Valley Country Park", town: "Maltby, Rotherham", type: "Lake Complex", pegs: 65, species: ["Carp", "Roach", "Perch", "Bream", "Pike"], dayTicket: "£6", eveningTicket: null, nightFishing: false, rating: 4.0, reviews: 34, campsite: "Rother Valley Park Lodges", campsiteDistance: "On site", campsitePrice: "£25/night", facilities: ["Visitor centre", "Restaurant", "Watersports centre", "Full toilet facilities"], rules: ["Day tickets from visitor centre", "No fishing certain areas", "Barbless only on match lakes"], season: "Open all year", recordFish: "Carp 28lb 14oz", description: "A country park on the former Thurcroft Colliery site that has been transformed into a thriving watersports and fishing destination. The lakes offer good mixed coarse fishing and the carp lake holds fish to nearly 30lb. A popular family destination that balances fishing with watersports and leisure.", comments: [{ user: "SouthYorksAngler", date: "1 week ago", rating: 4, text: "Good session on the carp lake. Three fish to 18lb on pop-ups. It's busy at weekends but midweek you can often get a good peg to yourself." }] },
-  ],
-  "North West": [
-    { id: 17, name: "Pennington Flash", town: "Leigh, Greater Manchester", type: "Flash Lake", pegs: 55, species: ["Bream", "Tench", "Carp", "Roach", "Pike", "Perch"], dayTicket: "£6", eveningTicket: null, nightFishing: false, rating: 4.2, reviews: 48, campsite: "Leigh Sports Village", campsiteDistance: "2.1 miles", campsitePrice: "£18/night", facilities: ["Large car park", "Toilets", "Nature reserve", "SSSI designation"], rules: ["No fishing certain conservation areas", "EA licence required", "No bait boats"], season: "Open all year on fishing areas", recordFish: "Bream 12lb 7oz", description: "A large subsidence flash lake on the edge of Leigh offering some of Greater Manchester's finest coarse fishing. Pennington Flash is an SSSI nature reserve and the birdwatching is outstanding — but the fishing matches the wildlife. Enormous bream shoals patrol the open water and the tench fishing in May and June is exceptional. A true jewel of the North West.", comments: [{ user: "MancsAngler", date: "3 days ago", rating: 5, text: "The bream are absolute slabs here. Best 12lb last weekend on the method feeder at range. Don't underestimate how big this lake is — use a marker float to find the right depth and distance." }, { user: "NorthWestNed", date: "1 week ago", rating: 4, text: "Tench session on the south bank. Seven fish best 6lb 3oz on worm and corn over groundbait. The nature reserve makes it genuinely special — had an osprey circle overhead mid-morning." }] },
-    { id: 18, name: "Rivington Reservoir", town: "Horwich, Bolton", type: "Reservoir", pegs: 35, species: ["Trout", "Perch", "Roach", "Pike"], dayTicket: "£18 (fly only)", eveningTicket: "£12", nightFishing: false, rating: 4.4, reviews: 29, campsite: "Rivington Camping", campsiteDistance: "1.8 miles", campsitePrice: "£15/night", facilities: ["Car park", "Visitor centre", "Toilets", "Scenic views to Rivington Pike"], rules: ["Fly fishing only", "Barbless hooks", "Maximum 4 fish limit", "All browns to be returned"], season: "March–October", recordFish: "Brown Trout 7lb 14oz", description: "Set beneath the impressive Rivington Pike hill fort, Rivington Reservoir is one of Lancashire's most scenic fishing venues. The fly-only reservoir is stocked with quality rainbow trout and holds some large wild brown trout. The surrounding moorland landscape makes every session feel like a genuine wilderness experience despite being close to Bolton.", comments: [{ user: "FlyFisherNorth", date: "4 days ago", rating: 5, text: "Stunning location and great fishing. Three rainbows on a PTN nymph fished slowly along the dam wall. The views from the top bank are incredible." }] },
-  ],
-};
+const directoryData = {};
 
-const allRegions = Object.keys(directoryData);
+const allRegions = [];
 const ratingColor = (r) => r === "Excellent" ? theme.excellent : r === "Good" ? theme.good : r === "Fair" ? theme.fair : theme.poor;
 const ScoreBar = ({ score }) => (
   <div style={{ background: theme.border, borderRadius: 4, height: 6, width: "100%", margin: "6px 0" }}>
@@ -503,59 +470,61 @@ function DirectoryTab() {
         ))}
       </div>
 
-      {/* Results count */}
-      <div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 16 }}>
-        Showing <strong style={{ color: theme.accent }}>{filtered.length}</strong> venues across <strong style={{ color: theme.accent }}>{Object.keys(byRegion).length}</strong> regions
-      </div>
-
-      {/* Sites by region */}
-      {Object.entries(byRegion).map(([region, sites]) => sites.length > 0 && (
-        <div key={region} style={{ marginBottom: 28 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-            <div style={{ height: 1, flex: 0, width: 3, background: theme.accent, borderRadius: 2 }} />
-            <div style={{ fontSize: 13, fontWeight: 800, color: theme.accent, letterSpacing: 1, textTransform: "uppercase" }}>{region}</div>
-            <div style={{ flex: 1, height: 1, background: theme.border }} />
-            <div style={{ fontSize: 12, color: theme.textMuted }}>{sites.length} venue{sites.length > 1 ? "s" : ""}</div>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {sites.map((site, i) => (
-              <div key={i} onClick={() => setSelectedSite(site)} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18, cursor: "pointer", transition: "all 0.2s", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
-                    <span style={{ fontWeight: 700, color: theme.text, fontSize: 15 }}>{site.name}</span>
-                    <Badge text={site.type} color={theme.water} />
-                    {site.nightFishing && <Badge text="Night ✓" color={theme.accentDim} />}
-                  </div>
-                  <div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 8 }}>📍 {site.town} · {site.pegs} pegs</div>
-                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                    {site.species.slice(0, 4).map((s, j) => <Badge key={j} text={s} color={theme.accentDim} />)}
-                    {site.species.length > 4 && <span style={{ color: theme.textMuted, fontSize: 11 }}>+{site.species.length - 4} more</span>}
-                  </div>
-                </div>
-                <div style={{ textAlign: "right", flexShrink: 0 }}>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: theme.accent }}>{site.dayTicket}</div>
-                  <div style={{ fontSize: 10, color: theme.textMuted, marginBottom: 6 }}>day ticket</div>
-                  <StarRating rating={site.rating} />
-                  <div style={{ fontSize: 10, color: theme.textMuted, marginTop: 2 }}>{site.reviews} reviews</div>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Results */}
+      {allSites.length === 0 ? (
+        <div style={{ background: theme.surfaceAlt, border: `2px dashed ${theme.border}`, borderRadius: 16, padding: 48, textAlign: "center", marginTop: 8 }}>
+          <div style={{ fontSize: 40, marginBottom: 16 }}>📍</div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>No venues listed yet</div>
+          <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7, maxWidth: 400, margin: "0 auto 24px" }}>The directory is being built. Know a good day ticket fishery? Submit it below and help other anglers find great venues.</div>
+          <button onClick={() => setShowSubmit(true)} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "12px 28px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>Be the first to add a venue →</button>
         </div>
-      ))}
+      ) : (
+        <>
+          <div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 16 }}>
+            Showing <strong style={{ color: theme.accent }}>{filtered.length}</strong> venues across <strong style={{ color: theme.accent }}>{Object.keys(byRegion).length}</strong> regions
+          </div>
+          {Object.entries(byRegion).map(([region, sites]) => sites.length > 0 && (
+            <div key={region} style={{ marginBottom: 28 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                <div style={{ height: 1, flex: 0, width: 3, background: theme.accent, borderRadius: 2 }} />
+                <div style={{ fontSize: 13, fontWeight: 800, color: theme.accent, letterSpacing: 1, textTransform: "uppercase" }}>{region}</div>
+                <div style={{ flex: 1, height: 1, background: theme.border }} />
+                <div style={{ fontSize: 12, color: theme.textMuted }}>{sites.length} venue{sites.length > 1 ? "s" : ""}</div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {sites.map((site, i) => (
+                  <div key={i} onClick={() => setSelectedSite(site)} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18, cursor: "pointer", transition: "all 0.2s", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
+                        <span style={{ fontWeight: 700, color: theme.text, fontSize: 15 }}>{site.name}</span>
+                        <Badge text={site.type} color={theme.water} />
+                        {site.nightFishing && <Badge text="Night ✓" color={theme.accentDim} />}
+                      </div>
+                      <div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 8 }}>📍 {site.town} · {site.pegs} pegs</div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                        {site.species.slice(0, 4).map((s, j) => <Badge key={j} text={s} color={theme.accentDim} />)}
+                        {site.species.length > 4 && <span style={{ color: theme.textMuted, fontSize: 11 }}>+{site.species.length - 4} more</span>}
+                      </div>
+                    </div>
+                    <div style={{ textAlign: "right", flexShrink: 0 }}>
+                      <div style={{ fontSize: 18, fontWeight: 900, color: theme.accent }}>{site.dayTicket}</div>
+                      <div style={{ fontSize: 10, color: theme.textMuted, marginBottom: 6 }}>day ticket</div>
+                      <StarRating rating={site.rating} />
+                      <div style={{ fontSize: 10, color: theme.textMuted, marginTop: 2 }}>{site.reviews} reviews</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 }
 
 // ── SPOTS TAB (kept for Trip Planner compatibility) ──────────────────────────
-const spotsData = [
-  { name: "Farmoor Reservoir", region: "Oxfordshire", type: "Reservoir", species: ["Trout", "Pike", "Perch"], dayTicket: "£15/day", rating: 4.6, distance: "2.1 miles to campsite", campsite: "Farmoor Camping & Caravanning", campsitePrice: "£18/night", facilities: ["Electric hookup", "Showers", "Toilets"], notes: "Excellent early morning trout fishing. Bank access all year." },
-  { name: "Lechlade & Bushyleaze", region: "Gloucestershire", type: "Lake", species: ["Carp", "Tench", "Bream"], dayTicket: "£12/day", rating: 4.8, distance: "0.5 miles to campsite", campsite: "Lechlade on Thames Leisure", campsitePrice: "£22/night", facilities: ["Riverside pitches", "Showers", "Shop"], notes: "Stunning Cotswolds setting. Large carp to 40lb+." },
-  { name: "Oxford Canal — Cropredy", region: "Oxfordshire", type: "Canal", species: ["Roach", "Perch", "Bream", "Pike"], dayTicket: "EA Licence only", rating: 4.2, distance: "1.2 miles to campsite", campsite: "Cropredy Marina Campsite", campsitePrice: "£14/night", facilities: ["Basic", "Toilets"], notes: "Classic canal fishing. Free with EA rod licence. Great for beginners." },
-  { name: "Ashmead Lake", region: "Warwickshire", type: "Commercial", species: ["Carp", "F1s", "Ide"], dayTicket: "£10/day", rating: 4.4, distance: "3.4 miles to campsite", campsite: "Warwick Racecourse Camping", campsitePrice: "£20/night", facilities: ["Full facilities", "Electric hookup"], notes: "Well stocked commercial venue. Perfect for match fishing." },
-  { name: "Clattercote Reservoir", region: "Oxfordshire", type: "Reservoir", species: ["Bream", "Tench", "Roach", "Carp"], dayTicket: "£8/day", rating: 4.1, distance: "1.8 miles to campsite", campsite: "Clattercote Farm Camping", campsitePrice: "£12/night", facilities: ["Basic", "Water", "Fire pits"], notes: "Hidden gem. Outstanding bream fishing in summer months." },
-];
+const spotsData = [];
 
 function TripPlannerTab() {
   const [step, setStep] = useState(1);
@@ -634,14 +603,22 @@ function TripPlannerTab() {
       {step === 1 && (
         <div>
           <div style={{ fontSize: 16, fontWeight: 700, color: theme.text, marginBottom: 14, fontFamily: "'Playfair Display', serif" }}>Where do you want to fish?</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {spotsData.map((s, i) => (
-              <div key={i} onClick={() => { setSelectedSpot(i); setStep(2); }} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18, cursor: "pointer", transition: "all 0.2s", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div><div style={{ fontWeight: 700, color: theme.text, marginBottom: 4 }}>{s.name}</div><div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 8 }}>📍 {s.region} · {s.type}</div><div style={{ display: "flex", gap: 6 }}>{s.species.slice(0, 3).map((sp, j) => <Badge key={j} text={sp} color={theme.accentDim} />)}</div></div>
-                <div style={{ textAlign: "right", flexShrink: 0, marginLeft: 16 }}><div style={{ color: theme.accent, fontWeight: 700 }}>⭐ {s.rating}</div><div style={{ fontSize: 12, color: theme.textMuted, marginTop: 4 }}>{s.dayTicket}</div><div style={{ fontSize: 12, color: theme.textMuted }}>⛺ {s.campsitePrice}</div></div>
-              </div>
-            ))}
-          </div>
+          {spotsData.length === 0 ? (
+            <div style={{ background: theme.surfaceAlt, border: `2px dashed ${theme.border}`, borderRadius: 16, padding: 40, textAlign: "center" }}>
+              <div style={{ fontSize: 36, marginBottom: 12 }}>🗺️</div>
+              <div style={{ fontWeight: 700, color: theme.text, fontSize: 16, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>No venues in the directory yet</div>
+              <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7, marginBottom: 0 }}>Once venues are added to the directory, you'll be able to plan full trips here — with live forecasts, cost breakdowns and AI-generated trip plans.</div>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {spotsData.map((s, i) => (
+                <div key={i} onClick={() => { setSelectedSpot(i); setStep(2); }} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18, cursor: "pointer", transition: "all 0.2s", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div><div style={{ fontWeight: 700, color: theme.text, marginBottom: 4 }}>{s.name}</div><div style={{ fontSize: 12, color: theme.textMuted, marginBottom: 8 }}>📍 {s.region} · {s.type}</div><div style={{ display: "flex", gap: 6 }}>{s.species.slice(0, 3).map((sp, j) => <Badge key={j} text={sp} color={theme.accentDim} />)}</div></div>
+                  <div style={{ textAlign: "right", flexShrink: 0, marginLeft: 16 }}><div style={{ color: theme.accent, fontWeight: 700 }}>⭐ {s.rating}</div><div style={{ fontSize: 12, color: theme.textMuted, marginTop: 4 }}>{s.dayTicket}</div><div style={{ fontSize: 12, color: theme.textMuted }}>⛺ {s.campsitePrice}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -1434,28 +1411,29 @@ function HomePage({ setTab }) {
     if (!clean) return;
     setForecastLoading(true);
     try {
-      const pcRes = await fetch(`https://api.postcodes.io/postcodes/${clean}`);
+      const pcRes  = await fetch(`https://api.postcodes.io/postcodes/${clean}`);
       const pcData = await pcRes.json();
       if (pcData.status !== 200) throw new Error();
       const { latitude: lat, longitude: lng, admin_county, admin_district } = pcData.result;
       setLocationName(admin_county || admin_district || clean);
-      const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,surface_pressure_max&timezone=Europe%2FLondon&forecast_days=3`);
-      const wx = await wxRes.json();
-      const days = wx.daily.time.map((d, i) => {
-        const avgTemp = Math.round((wx.daily.temperature_2m_max[i] + wx.daily.temperature_2m_min[i]) / 2);
-        const wind = Math.round(wx.daily.windspeed_10m_max[i]);
-        const rain = Math.round(wx.daily.precipitation_sum[i] * 10) / 10;
-        const pressure = wx.daily.surface_pressure_max[i];
-        const trend = i === 0 ? "Stable" : pressure > wx.daily.surface_pressure_max[i-1] + 1.5 ? "Rising" : pressure < wx.daily.surface_pressure_max[i-1] - 1.5 ? "Falling" : "Stable";
+      const wxRes  = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,surface_pressure_max&timezone=Europe%2FLondon&forecast_days=3`);
+      const wx     = await wxRes.json();
+      const d      = wx.daily;
+      const days   = d.time.map((dt, i) => {
+        const avgTemp = Math.round((d.temperature_2m_max[i] + d.temperature_2m_min[i]) / 2);
+        const wind    = Math.round(d.windspeed_10m_max[i]);
+        const rain    = Math.round(d.precipitation_sum[i] * 10) / 10;
+        const pressure = d.surface_pressure_max[i];
+        const trend   = i === 0 ? "Stable" : pressure > d.surface_pressure_max[i-1] + 1.5 ? "Rising" : pressure < d.surface_pressure_max[i-1] - 1.5 ? "Falling" : "Stable";
         let score = 5;
         if (avgTemp >= 12 && avgTemp <= 17) score += 2; else if (avgTemp >= 9) score += 1; else score -= 1;
         if (wind < 10) score += 1.5; else if (wind < 20) score += 0.5; else score -= 1.5;
         if (rain === 0) score += 0.5; else if (rain < 3) score += 0.2; else if (rain < 8) score -= 1; else score -= 2.5;
         if (trend === "Rising") score += 1.2; else if (trend === "Falling") score -= 1;
         score = Math.min(10, Math.max(1, Math.round(score * 10) / 10));
-        const rating = score >= 8 ? "Excellent" : score >= 6.5 ? "Good" : score >= 4.5 ? "Fair" : "Poor";
-        const names = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        const date = new Date(d);
+        const rating  = score >= 8 ? "Excellent" : score >= 6.5 ? "Good" : score >= 4.5 ? "Fair" : "Poor";
+        const names   = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const date    = new Date(dt);
         return { day: i === 0 ? "Today" : i === 1 ? "Tomorrow" : names[date.getDay()], score, rating, temp: avgTemp, rain };
       });
       setForecast(days);
@@ -1463,103 +1441,177 @@ function HomePage({ setTab }) {
     setForecastLoading(false);
   };
 
-  const features = [
-    { id: "forecast", icon: "🌤️", title: "Live Fishing Forecast", body: "Real weather data for your exact location. Fishing score, best time windows, target species and bait recommendations — updated daily.", color: theme.water },
-    { id: "directory", icon: "📍", title: "Venue Directory", body: "Day ticket fisheries across the UK with full details, reviews, rules and nearest campsites. Search by region, species or venue type.", color: theme.accent },
-    { id: "planner", icon: "🗺️", title: "AI Trip Planner", body: "Pick a venue, choose your dates, set your nights. Our AI builds a complete trip plan — session timetable, bait setup, kit checklist and local tips.", color: "#a78bfa" },
-    { id: "forum", icon: "💬", title: "Fishing Forum", body: "10 dedicated sub-forums covering every type of fishing. Ask questions, share catches, get venue tips from anglers who know.", color: "#fb923c" },
-    { id: "chat", icon: "🤖", title: "AI Fishing Guide", body: "Ask anything — species identification, rig setup, bait choice, regulations, river reading. Expert answers in seconds.", color: theme.warning },
-    { id: "report", icon: "📋", title: "Monthly Report", body: "Seasonal conditions, species in focus, technique of the month, regulation reminders. Everything you need to fish smarter.", color: theme.good },
-  ];
-
   const ratingCol = (r) => r === "Excellent" ? theme.excellent : r === "Good" ? theme.good : r === "Fair" ? theme.fair : theme.poor;
 
   return (
     <div>
-      {/* Hero */}
-      <div style={{ background: `linear-gradient(180deg, #0a1a0e 0%, ${theme.bg} 100%)`, borderBottom: `1px solid ${theme.border}`, padding: "60px 24px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        {/* Background grid decoration */}
-        <div style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 20% 50%, ${theme.accent}08 0%, transparent 50%), radial-gradient(circle at 80% 20%, ${theme.water}08 0%, transparent 40%)`, pointerEvents: "none" }} />
-        <div style={{ position: "relative" }}>
-          <div style={{ display: "inline-block", background: theme.accent + "22", border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: "4px 16px", fontSize: 12, color: theme.accent, fontWeight: 700, letterSpacing: 1, marginBottom: 20 }}>FREE FOR ALL UK ANGLERS</div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 900, color: theme.text, lineHeight: 1.15, marginBottom: 20, maxWidth: 700, margin: "0 auto 20px" }}>
-            The UK's most complete<br />
-            <span style={{ color: theme.accent }}>fishing guide</span>
+      {/* ── Hero ── */}
+      <div style={{ background: `linear-gradient(180deg, #0a1a0e 0%, ${theme.bg} 100%)`, borderBottom: `1px solid ${theme.border}`, padding: "60px 24px 56px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 50% 100%, ${theme.accent}08 0%, transparent 60%)`, pointerEvents: "none" }} />
+        <div style={{ position: "relative", maxWidth: 700, margin: "0 auto" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: theme.accent + "22", border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: "4px 16px", fontSize: 12, color: theme.accent, fontWeight: 700, letterSpacing: 1, marginBottom: 24, fontFamily: "'DM Mono', monospace", textTransform: "uppercase" }}>
+            Now on Amazon
+          </div>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(36px, 5vw, 60px)", fontWeight: 900, color: theme.text, lineHeight: 1.1, letterSpacing: -1, marginBottom: 20 }}>
+            Your fishing diary.<br />
+            <span style={{ color: theme.accent, fontStyle: "italic" }}>Smarter online.</span>
           </h1>
-          <p style={{ color: theme.textMuted, fontSize: 16, maxWidth: 500, margin: "0 auto 36px", lineHeight: 1.7 }}>
-            Live forecasts, venue directory, trip planner, forum and AI fishing guide — all completely free.
+          <p style={{ color: theme.textMuted, fontSize: 18, lineHeight: 1.7, maxWidth: 520, margin: "0 auto 36px", fontWeight: 300 }}>
+            Log every session. Track every catch. Let the AI reveal the patterns that help you catch more fish.
           </p>
-
-          {/* Postcode forecast widget */}
-          <div style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 24, maxWidth: 520, margin: "0 auto", textAlign: "left" }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: theme.text, marginBottom: 12 }}>Check fishing conditions at your location</div>
-            <div style={{ display: "flex", gap: 10 }}>
-              <input
-                value={postcode}
-                onChange={e => setPostcode(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && quickForecast()}
-                placeholder="Enter your postcode — e.g. OX7 1AA"
-                style={{ flex: 1, background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "12px 16px", color: theme.text, fontSize: 14, fontFamily: "inherit", outline: "none" }}
-              />
-              <button onClick={quickForecast} disabled={forecastLoading}
-                style={{ background: forecastLoading ? theme.border : theme.accent, color: forecastLoading ? theme.textMuted : "#000", border: "none", borderRadius: 10, padding: "12px 20px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14, whiteSpace: "nowrap" }}>
-                {forecastLoading ? "..." : "Check →"}
-              </button>
-            </div>
-
-            {forecast && (
-              <div style={{ marginTop: 16 }}>
-                <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>3-DAY FORECAST — {locationName.toUpperCase()}</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-                  {forecast.map((d, i) => (
-                    <div key={i} style={{ background: theme.surfaceAlt, borderRadius: 12, padding: "12px 10px", textAlign: "center", border: `1px solid ${ratingCol(d.rating)}33` }}>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: theme.textMuted, marginBottom: 6 }}>{d.day}</div>
-                      <div style={{ fontSize: 26, fontWeight: 900, color: ratingCol(d.rating) }}>{d.score}</div>
-                      <div style={{ fontSize: 11, color: ratingCol(d.rating), fontWeight: 700, marginTop: 2 }}>{d.rating}</div>
-                      <div style={{ fontSize: 11, color: theme.textMuted, marginTop: 4 }}>{d.temp}°C {d.rain > 0 ? "· 🌧️" : "· ☀️"}</div>
-                    </div>
-                  ))}
-                </div>
-                <button onClick={() => setTab("forecast")} style={{ width: "100%", marginTop: 12, background: "none", border: `1px solid ${theme.border}`, borderRadius: 10, padding: "10px", color: theme.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600 }}>
-                  View full 7-day forecast →
-                </button>
-              </div>
-            )}
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+            <button onClick={() => setTab("diary")}
+              style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "14px 32px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 16 }}>
+              Start Your Diary →
+            </button>
+            <button onClick={() => setTab("forecast")}
+              style={{ background: "none", border: `1px solid ${theme.border}`, borderRadius: 12, padding: "14px 32px", cursor: "pointer", fontFamily: "inherit", fontWeight: 600, fontSize: 16, color: theme.textMuted }}>
+              Check Forecast
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Features grid */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{ fontSize: 24, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Everything you need. All free.</div>
-          <div style={{ fontSize: 14, color: theme.textMuted }}>Six tools built for UK anglers — no subscription, no sign-up required.</div>
+      {/* ── Book connection ── */}
+      <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 280 }}>
+              <div style={{ fontSize: 11, color: theme.accent, fontWeight: 700, letterSpacing: 2, marginBottom: 12, fontFamily: "monospace", textTransform: "uppercase" }}>Physical Diary + Digital Platform</div>
+              <div style={{ fontSize: 26, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", lineHeight: 1.2, marginBottom: 16 }}>Have the Reel Big Fish diary?</div>
+              <p style={{ color: theme.textMuted, fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>The physical diary and this platform work together. Log sessions in the book on the bank, then transfer them here for AI analysis and long-term pattern tracking.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
+                {[
+                  { step: "1", text: "Buy the diary on Amazon and use it on the bank" },
+                  { step: "2", text: "Log your sessions here after each trip" },
+                  { step: "3", text: "The AI analyses your patterns over time" },
+                ].map((item, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: theme.accent + "33", border: `1px solid ${theme.accent}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: theme.accent, flexShrink: 0 }}>{item.step}</div>
+                    <div style={{ color: theme.text, fontSize: 14 }}>{item.text}</div>
+                  </div>
+                ))}
+              </div>
+              <a href="https://www.amazon.co.uk" target="_blank" rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, background: theme.warning, color: "#000", borderRadius: 12, padding: "12px 24px", textDecoration: "none", fontWeight: 700, fontSize: 14, fontFamily: "inherit" }}>
+                Buy on Amazon →
+              </a>
+            </div>
+            <div style={{ flex: 1, minWidth: 260, textAlign: "center" }}>
+              <img
+                src="https://raw.githubusercontent.com/fourshireswindows-png/reelbigfish/main/cover.jpg"
+                alt="Reel Big Fish Fishing Diary"
+                style={{ width: "100%", maxWidth: 300, borderRadius: 12, boxShadow: `0 20px 60px rgba(0,0,0,0.5)`, border: `1px solid ${theme.border}` }}
+              />
+              <div style={{ marginTop: 16, background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 12, padding: "12px 16px", maxWidth: 300, margin: "16px auto 0" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ fontSize: 13, color: theme.textMuted }}>Available now on Amazon</div>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: theme.accent }}>£9.99</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14 }}>
-          {features.map((f, i) => (
-            <div key={i} onClick={() => setTab(f.id)}
-              style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 16, padding: 22, cursor: "pointer", transition: "all 0.2s", display: "flex", gap: 16, alignItems: "flex-start" }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: f.color + "22", border: `1px solid ${f.color}33`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>{f.icon}</div>
-              <div>
+      </div>
+
+      {/* ── AI Analysis preview ── */}
+      <div style={{ padding: "60px 24px", maxWidth: 900, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <div style={{ fontSize: 11, color: theme.accent, fontWeight: 700, letterSpacing: 2, marginBottom: 12, fontFamily: "monospace", textTransform: "uppercase" }}>AI Powered Insights</div>
+          <div style={{ fontSize: 28, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 12 }}>What the AI tells you</div>
+          <div style={{ color: theme.textMuted, fontSize: 16, maxWidth: 500, margin: "0 auto" }}>After just a few sessions, patterns start to emerge. Here's the kind of insight you'll get.</div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          {[
+            { insight: "Your carp catches are strongest on overcast days with south-westerly winds.", icon: "🌤️" },
+            { insight: "You blank most often during high-pressure bright conditions. Consider scaling down your tackle.", icon: "📊" },
+            { insight: "Your evening sessions between 6pm and 9pm have produced your best results.", icon: "⏰" },
+            { insight: "Method feeder tactics on commercial venues are your most consistent approach.", icon: "🎣" },
+          ].map((item, i) => (
+            <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 20, display: "flex", gap: 14, alignItems: "flex-start" }}>
+              <div style={{ fontSize: 24, flexShrink: 0 }}>{item.icon}</div>
+              <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7, fontStyle: "italic" }}>"{item.insight}"</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ textAlign: "center", marginTop: 28 }}>
+          <button onClick={() => setTab("diary")}
+            style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "14px 36px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15 }}>
+            Start Logging Free →
+          </button>
+        </div>
+      </div>
+
+      {/* ── Other features ── */}
+      <div style={{ background: theme.surface, borderTop: `1px solid ${theme.border}`, borderBottom: `1px solid ${theme.border}`, padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Everything else. All free.</div>
+            <div style={{ color: theme.textMuted, fontSize: 14 }}>Built for UK anglers alongside the diary.</div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+            {[
+              { id: "forecast", icon: "🌤️", title: "Live Forecast",     body: "Real fishing score for your postcode based on live weather data.", color: theme.water },
+              { id: "chat",     icon: "🤖", title: "AI Fishing Guide",  body: "Ask anything — rigs, bait, species, regulations. Expert answers instantly.", color: "#a78bfa" },
+              { id: "forum",    icon: "💬", title: "Fishing Forum",     body: "10 sub-forums covering every type of UK fishing.", color: theme.good },
+            ].map((f, i) => (
+              <div key={i} onClick={() => setTab(f.id)}
+                style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 20, cursor: "pointer", transition: "all 0.2s" }}>
+                <div style={{ fontSize: 28, marginBottom: 10 }}>{f.icon}</div>
                 <div style={{ fontWeight: 700, color: theme.text, fontSize: 15, marginBottom: 6 }}>{f.title}</div>
                 <div style={{ color: theme.textMuted, fontSize: 13, lineHeight: 1.6 }}>{f.body}</div>
                 <div style={{ color: f.color, fontSize: 12, fontWeight: 700, marginTop: 10 }}>Open →</div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Fishery owner CTA */}
+      {/* ── Forecast widget ── */}
+      <div style={{ padding: "48px 24px", maxWidth: 900, margin: "0 auto" }}>
+        <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 28 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: theme.text, marginBottom: 4, fontFamily: "'Playfair Display', serif" }}>Check conditions before your next session</div>
+          <div style={{ color: theme.textMuted, fontSize: 13, marginBottom: 16 }}>Enter your postcode for a 3-day fishing forecast</div>
+          <div style={{ display: "flex", gap: 10 }}>
+            <input value={postcode} onChange={e => setPostcode(e.target.value)} onKeyDown={e => e.key === "Enter" && quickForecast()}
+              placeholder="e.g. OX7 1AA"
+              style={{ flex: 1, background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "11px 14px", color: theme.text, fontSize: 14, fontFamily: "inherit", outline: "none" }} />
+            <button onClick={quickForecast} disabled={forecastLoading}
+              style={{ background: forecastLoading ? theme.border : theme.accent, color: forecastLoading ? theme.textMuted : "#000", border: "none", borderRadius: 10, padding: "11px 20px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14, whiteSpace: "nowrap" }}>
+              {forecastLoading ? "..." : "Check →"}
+            </button>
+          </div>
+          {forecast && (
+            <div style={{ marginTop: 16 }}>
+              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10, fontFamily: "monospace", textTransform: "uppercase" }}>3-Day Forecast — {locationName}</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+                {forecast.map((d, i) => (
+                  <div key={i} style={{ background: theme.surface, borderRadius: 12, padding: "14px 10px", textAlign: "center", border: `1px solid ${ratingCol(d.rating)}33` }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: theme.textMuted, marginBottom: 6 }}>{d.day}</div>
+                    <div style={{ fontSize: 28, fontWeight: 900, color: ratingCol(d.rating) }}>{d.score}</div>
+                    <div style={{ fontSize: 11, color: ratingCol(d.rating), fontWeight: 700, marginTop: 2 }}>{d.rating}</div>
+                    <div style={{ fontSize: 11, color: theme.textMuted, marginTop: 4 }}>{d.temp}°C {d.rain > 0 ? "🌧️" : "☀️"}</div>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => setTab("forecast")} style={{ width: "100%", marginTop: 12, background: "none", border: `1px solid ${theme.border}`, borderRadius: 10, padding: "10px", color: theme.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600 }}>
+                View full 7-day forecast →
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ── Fishery owner CTA ── */}
       <div style={{ background: theme.surface, borderTop: `1px solid ${theme.border}`, padding: "40px 24px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
           <div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Do you run a fishery?</div>
-            <div style={{ color: theme.textMuted, fontSize: 14, maxWidth: 480, lineHeight: 1.6 }}>Get your venue listed in front of thousands of UK anglers — completely free. No credit card, no commitment.</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 4 }}>Do you run a fishery?</div>
+            <div style={{ color: theme.textMuted, fontSize: 14 }}>Get listed free for 6 months — no card, no commitment.</div>
           </div>
           <button onClick={() => setTab("list")}
-            style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 12, padding: "14px 28px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, whiteSpace: "nowrap", flexShrink: 0 }}>
-            List Your Fishery Free →
+            style={{ background: theme.warning, color: "#000", border: "none", borderRadius: 12, padding: "12px 24px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14, whiteSpace: "nowrap" }}>
+            List Your Fishery →
           </button>
         </div>
       </div>
@@ -1567,9 +1619,927 @@ function HomePage({ setTab }) {
   );
 }
 
+import { useState, useEffect } from "react";
+
+const t = {
+  bg: "#0a0f0d", surface: "#111a14", surfaceAlt: "#162019", border: "#1e3024",
+  accent: "#2dd87a", accentDim: "#1a8f4f", water: "#1a9cc7",
+  text: "#e8f0ea", textMuted: "#7a9a82", warning: "#d4a72c", danger: "#c0392b",
+  good: "#7ac943", purple: "#a78bfa", orange: "#fb923c",
+};
+
+const SPECIES = ["Carp","Tench","Bream","Roach","Perch","Pike","Barbel","Chub","Trout","F1 Carp","Ide","Rudd","Crucian Carp","Catfish","Zander","Dace","Grayling","Bass","Cod","Mackerel"];
+const BAITS   = ["Boilies","Sweetcorn","Pellets","Maggots","Casters","Worms","Method Feeder","Bread","Luncheon Meat","Surface Baits","Deadbait","Lures","Feeder Mix","Hemp","Paste"];
+const RIGS    = ["Hair Rig","Method Feeder","Float Rig","Ledger Rig","Running Lead","Chod Rig","Zig Rig","Helicopter Rig","Bolt Rig","Waggler","Stick Float","Inline Lead","Drop Shot","Spod Mix"];
+const SESSION_TYPES = ["Day Ticket","Overnight","Match","River","Canal","Sea","Fly Fishing","Club Water","Free Water","Other"];
+const WATER_CLARITY = ["Crystal Clear","Clear","Slightly Coloured","Coloured","Very Coloured","Murky"];
+const WIND_DIRS = ["N","NE","E","SE","S","SW","W","NW","Calm"];
+const MOON_PHASES = ["New Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Last Quarter","Waning Crescent"];
+
+function getMoonPhase(date) {
+  const known = new Date("2000-01-06");
+  const cycle = 29.53;
+  const diff  = (new Date(date) - known) / (1000 * 60 * 60 * 24);
+  const phase = ((diff % cycle) + cycle) % cycle;
+  return MOON_PHASES[Math.floor((phase / cycle) * 8)];
+}
+
+const inp = {
+  background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 10,
+  padding: "10px 14px", color: t.text, fontSize: 14, fontFamily: "inherit",
+  outline: "none", width: "100%",
+};
+const sel = { ...inp, cursor: "pointer" };
+
+function Chip({ label, selected, color = t.accent, onClick }) {
+  return (
+    <button onClick={onClick} style={{
+      background: selected ? color + "33" : t.surfaceAlt,
+      color: selected ? color : t.textMuted,
+      border: `1px solid ${selected ? color : t.border}`,
+      borderRadius: 20, padding: "5px 14px", cursor: "pointer",
+      fontFamily: "inherit", fontSize: 12, fontWeight: 600,
+      whiteSpace: "nowrap", transition: "all 0.15s",
+    }}>{label}</button>
+  );
+}
+
+function StatCard({ label, value, sub, color = t.accent }) {
+  return (
+    <div style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 14, padding: "16px 18px" }}>
+      <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>{label}</div>
+      <div style={{ fontSize: 26, fontWeight: 900, color, fontFamily: "'Playfair Display', serif" }}>{value}</div>
+      {sub && <div style={{ fontSize: 12, color: t.textMuted, marginTop: 3 }}>{sub}</div>}
+    </div>
+  );
+}
+
+// ─── PROFILE SETUP ────────────────────────────────────────────────────────────
+function ProfileSetup({ onSave }) {
+  const [form, setForm] = useState({ username: "", region: "", bio: "", favSpecies: [], isPublic: true });
+  const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
+  const toggleSpecies = s => setForm(p => ({ ...p, favSpecies: p.favSpecies.includes(s) ? p.favSpecies.filter(x => x !== s) : [...p.favSpecies, s].slice(0, 5) }));
+
+  const regions = ["East Midlands","East of England","London","North East","North West","South East","South West","West Midlands","Yorkshire","Wales","Scotland","Northern Ireland"];
+
+  return (
+    <div style={{ maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ textAlign: "center", padding: "24px 0 8px" }}>
+        <div style={{ fontSize: 28, fontWeight: 900, color: t.text, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Set Up Your Profile</div>
+        <div style={{ color: t.textMuted, fontSize: 14 }}>Takes 60 seconds. You can update everything later.</div>
+      </div>
+
+      <div>
+        <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>USERNAME *</div>
+        <input value={form.username} onChange={e => set("username", e.target.value)} placeholder="e.g. CarpKing_Dave" style={inp} />
+      </div>
+
+      <div>
+        <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>YOUR REGION</div>
+        <select value={form.region} onChange={e => set("region", e.target.value)} style={sel}>
+          <option value="">Select your region...</option>
+          {regions.map(r => <option key={r} value={r}>{r}</option>)}
+        </select>
+      </div>
+
+      <div>
+        <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>FAVOURITE SPECIES (pick up to 5)</div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {SPECIES.slice(0, 12).map(s => <Chip key={s} label={s} selected={form.favSpecies.includes(s)} onClick={() => toggleSpecies(s)} />)}
+        </div>
+      </div>
+
+      <div>
+        <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>BIO (optional)</div>
+        <textarea value={form.bio} onChange={e => set("bio", e.target.value)} placeholder="Tell other anglers about yourself..." rows={3} style={{ ...inp, resize: "vertical" }} />
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 12, background: t.surfaceAlt, borderRadius: 12, padding: "14px 16px" }}>
+        <input type="checkbox" id="pub" checked={form.isPublic} onChange={e => set("isPublic", e.target.checked)} style={{ width: 18, height: 18, cursor: "pointer", accentColor: t.accent }} />
+        <div>
+          <label htmlFor="pub" style={{ color: t.text, fontSize: 14, fontWeight: 600, cursor: "pointer" }}>Public profile</label>
+          <div style={{ color: t.textMuted, fontSize: 12, marginTop: 2 }}>Other anglers can see your profile and public catch reports</div>
+        </div>
+      </div>
+
+      <button onClick={() => form.username && onSave(form)}
+        disabled={!form.username}
+        style={{ background: !form.username ? t.border : t.accent, color: !form.username ? t.textMuted : "#000", border: "none", borderRadius: 12, padding: "16px", cursor: form.username ? "pointer" : "not-allowed", fontFamily: "inherit", fontWeight: 700, fontSize: 15 }}>
+        Create My Profile →
+      </button>
+    </div>
+  );
+}
+
+// ─── PROFILE VIEW ─────────────────────────────────────────────────────────────
+function ProfileView({ profile, sessions, setView }) {
+  const totalFish   = sessions.reduce((a, s) => a + (s.totalFish || 0), 0);
+  const blanks      = sessions.filter(s => s.blank).length;
+  const allCatches  = sessions.flatMap(s => s.catches || []);
+  const pb          = allCatches.reduce((best, c) => (!best || (c.weightLb + c.weightOz/16) > (best.weightLb + best.weightOz/16)) ? c : best, null);
+
+  const speciesCount = {};
+  allCatches.forEach(c => { speciesCount[c.species] = (speciesCount[c.species] || 0) + 1; });
+  const topSpecies = Object.entries(speciesCount).sort((a, b) => b[1] - a[1]).slice(0, 3);
+
+  const baitCount = {};
+  sessions.forEach(s => (s.baitUsed || []).forEach(b => { baitCount[b] = (baitCount[b] || 0) + 1; }));
+  const topBait = Object.entries(baitCount).sort((a, b) => b[1] - a[1])[0];
+
+  const venueCount = {};
+  sessions.forEach(s => { if (s.venueName) venueCount[s.venueName] = (venueCount[s.venueName] || 0) + 1; });
+  const topVenue = Object.entries(venueCount).sort((a, b) => b[1] - a[1])[0];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      {/* Profile header */}
+      <div style={{ background: `linear-gradient(135deg, ${t.accentDim}33, ${t.water}22)`, border: `1px solid ${t.accent}44`, borderRadius: 20, padding: 28 }}>
+        <div style={{ display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap" }}>
+          <div style={{ width: 72, height: 72, borderRadius: "50%", background: `linear-gradient(135deg, ${t.accent}, ${t.water})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 900, color: "#000", fontFamily: "'Playfair Display', serif", flexShrink: 0 }}>
+            {profile.username?.[0]?.toUpperCase() || "?"}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: t.text, fontFamily: "'Playfair Display', serif" }}>{profile.username}</div>
+            {profile.region && <div style={{ color: t.textMuted, fontSize: 13, marginTop: 2 }}>📍 {profile.region}</div>}
+            {profile.bio && <div style={{ color: t.textMuted, fontSize: 14, marginTop: 8, lineHeight: 1.6 }}>{profile.bio}</div>}
+            {profile.favSpecies?.length > 0 && (
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
+                {profile.favSpecies.map(s => (
+                  <span key={s} style={{ background: t.accent + "22", color: t.accent, border: `1px solid ${t.accent}44`, borderRadius: 20, padding: "2px 10px", fontSize: 11, fontWeight: 600 }}>{s}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <button onClick={() => setView("editProfile")} style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 10, padding: "8px 14px", color: t.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 12 }}>Edit</button>
+        </div>
+      </div>
+
+      {/* Stats grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 10 }}>
+        <StatCard label="SESSIONS LOGGED"  value={sessions.length} sub={`${blanks} blank${blanks !== 1 ? "s" : ""}`} />
+        <StatCard label="TOTAL FISH"       value={totalFish} sub={sessions.length > 0 ? `${(totalFish / sessions.length).toFixed(1)} per session avg` : "—"} color={t.water} />
+        <StatCard label="PERSONAL BEST"    value={pb ? `${pb.weightLb}lb ${pb.weightOz}oz` : "—"} sub={pb ? pb.species : "No PBs yet"} color={t.warning} />
+        <StatCard label="TOP BAIT"         value={topBait ? topBait[0] : "—"} sub={topBait ? `Used ${topBait[1]} time${topBait[1] !== 1 ? "s" : ""}` : "Keep logging"} color={t.purple} />
+      </div>
+
+      {topVenue && (
+        <div style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 8 }}>MOST FISHED VENUE</div>
+          <div style={{ fontWeight: 700, color: t.text, fontSize: 16 }}>{topVenue[0]}</div>
+          <div style={{ color: t.textMuted, fontSize: 13, marginTop: 3 }}>{topVenue[1]} session{topVenue[1] !== 1 ? "s" : ""} logged here</div>
+        </div>
+      )}
+
+      {topSpecies.length > 0 && (
+        <div style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>TOP SPECIES</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {topSpecies.map(([species, count], i) => (
+              <div key={species} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 22, height: 22, borderRadius: "50%", background: [t.accent, t.water, t.warning][i] + "33", border: `1px solid ${[t.accent, t.water, t.warning][i]}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: [t.accent, t.water, t.warning][i] }}>{i + 1}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 600, color: t.text, fontSize: 14 }}>{species}</div>
+                  <div style={{ background: t.border, borderRadius: 4, height: 4, marginTop: 4 }}>
+                    <div style={{ width: `${(count / topSpecies[0][1]) * 100}%`, height: "100%", background: [t.accent, t.water, t.warning][i], borderRadius: 4 }} />
+                  </div>
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: t.textMuted }}>{count}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Recent sessions */}
+      {sessions.length > 0 && (
+        <div>
+          <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>RECENT SESSIONS</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {sessions.slice(0, 5).map((s, i) => (
+              <div key={i} style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 12, padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
+                  <div style={{ fontWeight: 600, color: t.text, fontSize: 14 }}>{s.venueName || "Unknown venue"}</div>
+                  <div style={{ fontSize: 12, color: t.textMuted, marginTop: 2 }}>{s.date} · {s.sessionType}</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  {s.blank ? (
+                    <div style={{ color: t.danger, fontWeight: 700, fontSize: 13 }}>Blank</div>
+                  ) : (
+                    <div style={{ color: t.accent, fontWeight: 700, fontSize: 16 }}>{s.totalFish} fish</div>
+                  )}
+                  {s.sessionRating && <div style={{ color: t.warning, fontSize: 12 }}>{"★".repeat(s.sessionRating)}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── SESSION LOGGER ────────────────────────────────────────────────────────────
+function SessionLogger({ sessions, onSave, onCancel }) {
+  const today = new Date().toISOString().split("T")[0];
+  const [step, setStep] = useState(1);
+  const [weatherLoading, setWeatherLoading] = useState(false);
+  const [form, setForm] = useState({
+    date: today, startTime: "", endTime: "", venueName: "", pegSwim: "",
+    pegPrivate: true, sessionType: "Day Ticket", targetSpecies: [],
+    blank: false, totalFish: 0, catches: [], baitUsed: [], rigUsed: "",
+    hookbait: "", tackleNotes: "", weatherCondition: "", windDirection: "",
+    windSpeed: "", temperature: "", airPressure: "", pressureTrend: "",
+    moonPhase: getMoonPhase(today), waterClarity: "", photos: [],
+    privateNotes: "", publicReport: "", sessionRating: 0, isPublic: false,
+    postcode: "",
+  });
+
+  const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
+  const toggleArr = (k, v) => setForm(p => ({ ...p, [k]: p[k].includes(v) ? p[k].filter(x => x !== v) : [...p[k], v] }));
+
+  const recentBaits = [...new Set(sessions.flatMap(s => s.baitUsed || []))].slice(0, 6);
+  const recentRigs  = [...new Set(sessions.map(s => s.rigUsed).filter(Boolean))].slice(0, 4);
+
+  const fetchWeather = async () => {
+    if (!form.postcode) return;
+    setWeatherLoading(true);
+    try {
+      const pcRes  = await fetch(`https://api.postcodes.io/postcodes/${form.postcode.replace(/\s/g, "").toUpperCase()}`);
+      const pcData = await pcRes.json();
+      if (pcData.status !== 200) throw new Error();
+      const { latitude: lat, longitude: lng } = pcData.result;
+      const wx = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,windspeed_10m,winddirection_10m,surface_pressure,weathercode&timezone=Europe%2FLondon`);
+      const wxData = await wx.json();
+      const c = wxData.current;
+      const dirs = ["N","NE","E","SE","S","SW","W","NW","N"];
+      const dirIdx = Math.round(c.winddirection_10m / 45) % 8;
+      const codes = { 0:"Clear", 1:"Mainly Clear", 2:"Partly Cloudy", 3:"Overcast", 45:"Foggy", 48:"Icy Fog", 51:"Light Drizzle", 53:"Drizzle", 55:"Heavy Drizzle", 61:"Light Rain", 63:"Rain", 65:"Heavy Rain", 71:"Light Snow", 80:"Showers", 95:"Thunderstorm" };
+      setForm(p => ({
+        ...p,
+        temperature: Math.round(c.temperature_2m).toString(),
+        windSpeed: Math.round(c.windspeed_10m).toString(),
+        windDirection: dirs[dirIdx],
+        airPressure: Math.round(c.surface_pressure).toString(),
+        weatherCondition: codes[c.weathercode] || "Variable",
+        weatherAutofilled: true,
+      }));
+    } catch {}
+    setWeatherLoading(false);
+  };
+
+  const addCatch = () => setForm(p => ({ ...p, catches: [...p.catches, { species: "", weightLb: "", weightOz: "", bait: "", notes: "" }] }));
+  const setCatch = (i, k, v) => setForm(p => { const c = [...p.catches]; c[i] = { ...c[i], [k]: v }; return { ...p, catches: c }; });
+  const removeCatch = i => setForm(p => ({ ...p, catches: p.catches.filter((_, j) => j !== i) }));
+
+  const steps = ["Basics", "Catches", "Conditions", "Notes"];
+
+  return (
+    <div style={{ maxWidth: 600, margin: "0 auto" }}>
+      {/* Step indicator */}
+      <div style={{ display: "flex", gap: 0, marginBottom: 24 }}>
+        {steps.map((s, i) => (
+          <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", background: step > i + 1 ? t.accent : step === i + 1 ? t.accent + "33" : t.border, border: `2px solid ${step >= i + 1 ? t.accent : t.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: step > i + 1 ? "#000" : step === i + 1 ? t.accent : t.textMuted, transition: "all 0.3s" }}>
+              {step > i + 1 ? "✓" : i + 1}
+            </div>
+            <div style={{ fontSize: 10, color: step === i + 1 ? t.accent : t.textMuted, fontWeight: step === i + 1 ? 700 : 400 }}>{s}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Step 1 — Basics */}
+      {step === 1 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>DATE *</div>
+              <input type="date" value={form.date} onChange={e => { set("date", e.target.value); set("moonPhase", getMoonPhase(e.target.value)); }} style={inp} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>SESSION TYPE *</div>
+              <select value={form.sessionType} onChange={e => set("sessionType", e.target.value)} style={sel}>
+                {SESSION_TYPES.map(st => <option key={st} value={st}>{st}</option>)}
+              </select>
+            </div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>START TIME</div>
+              <input type="time" value={form.startTime} onChange={e => set("startTime", e.target.value)} style={inp} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>END TIME</div>
+              <input type="time" value={form.endTime} onChange={e => set("endTime", e.target.value)} style={inp} />
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>VENUE NAME *</div>
+            <input value={form.venueName} onChange={e => set("venueName", e.target.value)} placeholder="e.g. Lechlade Fishery, or just 'Local Lake'" style={inp} />
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, background: t.surfaceAlt, borderRadius: 10, padding: "10px 14px" }}>
+            <input type="checkbox" id="pegPriv" checked={form.pegPrivate} onChange={e => set("pegPrivate", e.target.checked)} style={{ width: 16, height: 16, accentColor: t.accent }} />
+            <div style={{ flex: 1 }}>
+              <label htmlFor="pegPriv" style={{ color: t.text, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Keep peg/swim private</label>
+              <div style={{ color: t.textMuted, fontSize: 11 }}>Peg/swim details will only be visible to you</div>
+            </div>
+          </div>
+          {!form.pegPrivate && (
+            <input value={form.pegSwim} onChange={e => set("pegSwim", e.target.value)} placeholder="Peg number or swim name" style={inp} />
+          )}
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>TARGET SPECIES</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {SPECIES.slice(0, 10).map(s => <Chip key={s} label={s} selected={form.targetSpecies.includes(s)} onClick={() => toggleArr("targetSpecies", s)} />)}
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, background: form.blank ? t.danger + "22" : t.surfaceAlt, border: `1px solid ${form.blank ? t.danger + "44" : t.border}`, borderRadius: 12, padding: "14px 18px", cursor: "pointer" }} onClick={() => set("blank", !form.blank)}>
+            <div style={{ width: 24, height: 24, borderRadius: "50%", background: form.blank ? t.danger : t.border, border: `2px solid ${form.blank ? t.danger : t.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{form.blank ? "✓" : ""}</div>
+            <div>
+              <div style={{ fontWeight: 700, color: t.text, fontSize: 14 }}>Blank session</div>
+              <div style={{ color: t.textMuted, fontSize: 12 }}>No fish caught — still valuable data</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Step 2 — Catches */}
+      {step === 2 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {form.blank ? (
+            <div style={{ background: t.danger + "11", border: `1px solid ${t.danger}44`, borderRadius: 14, padding: 24, textAlign: "center" }}>
+              <div style={{ fontSize: 32, marginBottom: 8 }}>🎣</div>
+              <div style={{ fontWeight: 700, color: t.text, fontSize: 16, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>Blank Session</div>
+              <div style={{ color: t.textMuted, fontSize: 14 }}>These days happen to everyone. Your AI analysis will use this data to spot patterns in when you blank.</div>
+            </div>
+          ) : (
+            <>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
+                  <div style={{ fontWeight: 700, color: t.text, fontSize: 16, fontFamily: "'Playfair Display', serif" }}>Fish Caught</div>
+                  <div style={{ color: t.textMuted, fontSize: 13 }}>Add each fish individually for PB tracking</div>
+                </div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: t.accent }}>{form.catches.length}</div>
+              </div>
+
+              {form.catches.map((c, i) => (
+                <div key={i} style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 14, padding: 16 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                    <div style={{ fontWeight: 700, color: t.accent, fontSize: 14 }}>Fish #{i + 1}</div>
+                    <button onClick={() => removeCatch(i)} style={{ background: "none", border: "none", color: t.textMuted, cursor: "pointer", fontSize: 18, padding: 0 }}>×</button>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
+                    <div>
+                      <div style={{ fontSize: 10, color: t.textMuted, marginBottom: 4 }}>SPECIES</div>
+                      <select value={c.species} onChange={e => setCatch(i, "species", e.target.value)} style={{ ...sel, padding: "8px 10px", fontSize: 13 }}>
+                        <option value="">Species...</option>
+                        {SPECIES.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 10, color: t.textMuted, marginBottom: 4 }}>LB</div>
+                      <input type="number" value={c.weightLb} onChange={e => setCatch(i, "weightLb", e.target.value)} placeholder="0" style={{ ...inp, padding: "8px 10px", fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 10, color: t.textMuted, marginBottom: 4 }}>OZ</div>
+                      <input type="number" value={c.weightOz} onChange={e => setCatch(i, "weightOz", e.target.value)} placeholder="0" style={{ ...inp, padding: "8px 10px", fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <input value={c.notes} onChange={e => setCatch(i, "notes", e.target.value)} placeholder="Quick note (optional)" style={{ ...inp, fontSize: 13, padding: "8px 12px" }} />
+                </div>
+              ))}
+
+              <button onClick={addCatch} style={{ background: t.surfaceAlt, border: `2px dashed ${t.border}`, borderRadius: 14, padding: 16, cursor: "pointer", color: t.textMuted, fontFamily: "inherit", fontSize: 14, fontWeight: 600, width: "100%" }}>
+                + Add a Fish
+              </button>
+
+              <div>
+                <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>BAIT USED</div>
+                {recentBaits.length > 0 && (
+                  <div style={{ marginBottom: 10 }}>
+                    <div style={{ fontSize: 11, color: t.textMuted, marginBottom: 6 }}>Recent:</div>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {recentBaits.map(b => <Chip key={b} label={b} selected={form.baitUsed.includes(b)} onClick={() => toggleArr("baitUsed", b)} color={t.water} />)}
+                    </div>
+                  </div>
+                )}
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {BAITS.slice(0, 10).map(b => <Chip key={b} label={b} selected={form.baitUsed.includes(b)} onClick={() => toggleArr("baitUsed", b)} color={t.water} />)}
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>RIG USED</div>
+                {recentRigs.length > 0 && (
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+                    {recentRigs.map(r => <Chip key={r} label={r} selected={form.rigUsed === r} onClick={() => set("rigUsed", form.rigUsed === r ? "" : r)} color={t.purple} />)}
+                  </div>
+                )}
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {RIGS.slice(0, 8).map(r => <Chip key={r} label={r} selected={form.rigUsed === r} onClick={() => set("rigUsed", form.rigUsed === r ? "" : r)} color={t.purple} />)}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Step 3 — Conditions */}
+      {step === 3 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 14, padding: 16 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: t.text, marginBottom: 10 }}>Autofill weather from your location</div>
+            <div style={{ display: "flex", gap: 10 }}>
+              <input value={form.postcode} onChange={e => set("postcode", e.target.value)} placeholder="Enter postcode" style={{ ...inp, flex: 1 }} />
+              <button onClick={fetchWeather} disabled={!form.postcode || weatherLoading}
+                style={{ background: !form.postcode ? t.border : t.accent, color: !form.postcode ? t.textMuted : "#000", border: "none", borderRadius: 10, padding: "10px 16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 13, whiteSpace: "nowrap" }}>
+                {weatherLoading ? "..." : "Fill →"}
+              </button>
+            </div>
+            {form.weatherAutofilled && <div style={{ color: t.accent, fontSize: 12, marginTop: 8 }}>✓ Weather autofilled — adjust if needed</div>}
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>WEATHER</div>
+              <input value={form.weatherCondition} onChange={e => set("weatherCondition", e.target.value)} placeholder="e.g. Overcast" style={inp} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>TEMPERATURE °C</div>
+              <input type="number" value={form.temperature} onChange={e => set("temperature", e.target.value)} placeholder="e.g. 14" style={inp} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>WIND DIRECTION</div>
+              <select value={form.windDirection} onChange={e => set("windDirection", e.target.value)} style={sel}>
+                <option value="">Select...</option>
+                {WIND_DIRS.map(d => <option key={d} value={d}>{d}</option>)}
+              </select>
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>WIND SPEED km/h</div>
+              <input type="number" value={form.windSpeed} onChange={e => set("windSpeed", e.target.value)} placeholder="e.g. 12" style={inp} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>PRESSURE hPa</div>
+              <input type="number" value={form.airPressure} onChange={e => set("airPressure", e.target.value)} placeholder="e.g. 1014" style={inp} />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>PRESSURE TREND</div>
+              <select value={form.pressureTrend} onChange={e => set("pressureTrend", e.target.value)} style={sel}>
+                <option value="">Select...</option>
+                {["Rising","Stable","Falling"].map(p => <option key={p} value={p}>{p}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>WATER CLARITY</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {WATER_CLARITY.map(c => <Chip key={c} label={c} selected={form.waterClarity === c} onClick={() => set("waterClarity", form.waterClarity === c ? "" : c)} color={t.water} />)}
+            </div>
+          </div>
+
+          <div style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 12, padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: t.text }}>Moon Phase</div>
+              <div style={{ fontSize: 12, color: t.textMuted }}>Auto-calculated from date</div>
+            </div>
+            <div style={{ fontWeight: 700, color: t.accent, fontSize: 13 }}>{form.moonPhase}</div>
+          </div>
+        </div>
+      )}
+
+      {/* Step 4 — Notes */}
+      {step === 4 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>PRIVATE NOTES</div>
+            <div style={{ fontSize: 12, color: t.textMuted, marginBottom: 8 }}>Only visible to you — never shared</div>
+            <textarea value={form.privateNotes} onChange={e => set("privateNotes", e.target.value)} placeholder="Exact peg, swim details, tactics that worked, what to try next time..." rows={4} style={{ ...inp, resize: "vertical" }} />
+          </div>
+
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>PUBLIC CATCH REPORT</div>
+            <div style={{ fontSize: 12, color: t.textMuted, marginBottom: 8 }}>What you want to share — you control what location info to include</div>
+            <textarea value={form.publicReport} onChange={e => set("publicReport", e.target.value)} placeholder="e.g. 'Great morning session in the Cotswolds, 3 carp to 28lb on boilies over hemp...'" rows={4} style={{ ...inp, resize: "vertical" }} />
+          </div>
+
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>SESSION RATING</div>
+            <div style={{ display: "flex", gap: 8 }}>
+              {[1,2,3,4,5].map(n => (
+                <button key={n} onClick={() => set("sessionRating", n)}
+                  style={{ flex: 1, background: form.sessionRating >= n ? t.warning + "33" : t.surfaceAlt, color: form.sessionRating >= n ? t.warning : t.textMuted, border: `1px solid ${form.sessionRating >= n ? t.warning + "66" : t.border}`, borderRadius: 10, padding: "12px 6px", cursor: "pointer", fontFamily: "inherit", fontSize: 20, transition: "all 0.15s" }}>
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 12, background: form.isPublic ? t.accent + "11" : t.surfaceAlt, border: `1px solid ${form.isPublic ? t.accent + "44" : t.border}`, borderRadius: 12, padding: "14px 18px", cursor: "pointer" }} onClick={() => set("isPublic", !form.isPublic)}>
+            <div style={{ width: 24, height: 24, borderRadius: "50%", background: form.isPublic ? t.accent : t.border, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, color: "#000" }}>{form.isPublic ? "✓" : ""}</div>
+            <div>
+              <div style={{ fontWeight: 700, color: t.text, fontSize: 14 }}>Share as public catch report</div>
+              <div style={{ color: t.textMuted, fontSize: 12 }}>Uses your public report text — private notes stay private</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Navigation */}
+      <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
+        <button onClick={step === 1 ? onCancel : () => setStep(step - 1)}
+          style={{ flex: 1, background: "none", border: `1px solid ${t.border}`, borderRadius: 12, padding: "14px", color: t.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 14 }}>
+          {step === 1 ? "Cancel" : "← Back"}
+        </button>
+        {step < 4 ? (
+          <button onClick={() => setStep(step + 1)}
+            disabled={step === 1 && !form.venueName}
+            style={{ flex: 2, background: (step === 1 && !form.venueName) ? t.border : t.accent, color: (step === 1 && !form.venueName) ? t.textMuted : "#000", border: "none", borderRadius: 12, padding: "14px", cursor: (step === 1 && !form.venueName) ? "not-allowed" : "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>
+            Next →
+          </button>
+        ) : (
+          <button onClick={() => onSave({ ...form, totalFish: form.blank ? 0 : form.catches.length, id: Date.now() })}
+            style={{ flex: 2, background: t.accent, color: "#000", border: "none", borderRadius: 12, padding: "14px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>
+            Save Session →
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── AI ANALYSIS ───────────────────────────────────────────────────────────────
+function AIAnalysis({ sessions, profile }) {
+  const [analysis, setAnalysis]   = useState(null);
+  const [loading, setLoading]     = useState(false);
+  const [analysisType, setType]   = useState("full");
+
+  const generate = async () => {
+    if (sessions.length < 2) return;
+    setLoading(true);
+    setAnalysis(null);
+
+    const totalFish    = sessions.reduce((a, s) => a + (s.totalFish || 0), 0);
+    const blanks       = sessions.filter(s => s.blank).length;
+    const allCatches   = sessions.flatMap(s => s.catches || []);
+    const baitCounts   = {};
+    sessions.forEach(s => (s.baitUsed || []).forEach(b => { baitCounts[b] = (baitCounts[b] || 0) + 1; }));
+    const rigCounts    = {};
+    sessions.forEach(s => { if (s.rigUsed) rigCounts[s.rigUsed] = (rigCounts[s.rigUsed] || 0) + 1; });
+    const venueCounts  = {};
+    sessions.forEach(s => { if (s.venueName) venueCounts[s.venueName] = (venueCounts[s.venueName] || 0) + 1; });
+    const windSessions = {};
+    sessions.forEach(s => { if (s.windDirection && !s.blank) windSessions[s.windDirection] = (windSessions[s.windDirection] || 0) + 1; });
+
+    const sessionSummary = sessions.slice(-20).map(s => ({
+      date: s.date, type: s.sessionType, venue: s.venueName,
+      fish: s.totalFish, blank: s.blank, bait: s.baitUsed?.join(", "),
+      rig: s.rigUsed, weather: s.weatherCondition, wind: s.windDirection,
+      temp: s.temperature, pressure: s.airPressure, trend: s.pressureTrend,
+      moon: s.moonPhase, rating: s.sessionRating,
+    }));
+
+    const prompts = {
+      full: `You are an expert UK fishing coach analysing a UK angler's session diary.
+
+Angler: ${profile.username || "Angler"}, region: ${profile.region || "UK"}, favourite species: ${profile.favSpecies?.join(", ") || "mixed coarse"}
+
+Diary summary (last ${sessions.length} sessions):
+- Total sessions: ${sessions.length}
+- Total fish: ${totalFish} (${sessions.length > 0 ? (totalFish/sessions.length).toFixed(1) : 0} avg per session)
+- Blank sessions: ${blanks} (${sessions.length > 0 ? Math.round(blanks/sessions.length*100) : 0}%)
+- Top baits: ${Object.entries(baitCounts).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([b,n])=>`${b}(${n})`).join(", ") || "none logged"}
+- Top rigs: ${Object.entries(rigCounts).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([r,n])=>`${r}(${n})`).join(", ") || "none logged"}
+- Most fished venues: ${Object.entries(venueCounts).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([v,n])=>`${v}(${n})`).join(", ") || "none"}
+- Best wind for catches: ${Object.entries(windSessions).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([w,n])=>`${w}(${n})`).join(", ") || "insufficient data"}
+
+Recent session data: ${JSON.stringify(sessionSummary.slice(-10))}
+
+Confidence level: ${sessions.length < 5 ? "LOW — limited data, avoid strong claims" : sessions.length < 15 ? "MEDIUM" : "HIGH"}
+
+Write a personal fishing analysis (200-300 words) covering:
+1. Overall performance summary
+2. What's working best (specific bait/rig/condition patterns if visible)
+3. What conditions produce best results
+4. Honest assessment of blank patterns
+5. One specific, actionable improvement suggestion
+6. What to focus on next
+
+Rules:
+- If data is limited (under 8 sessions), say so and focus on general observations only
+- Never make up patterns that aren't in the data
+- Be specific — reference their actual venues, baits, numbers
+- Tone: honest, knowledgeable fishing mate, not a corporate AI
+- Do not use bullet points — write in natural flowing paragraphs`,
+
+      quick: `Based on this angler's last 5 sessions, give a short sharp insight (3-4 sentences max).
+
+Angler: ${profile.username || "Angler"}
+Last 5 sessions: ${JSON.stringify(sessionSummary.slice(-5))}
+Total diary sessions: ${sessions.length}
+
+Be direct, specific, and practical. Reference actual data. If too little data, say so briefly.`,
+
+      conditions: `What conditions should this angler focus on based on their diary data?
+
+Angler: ${profile.username}, sessions logged: ${sessions.length}
+Session data: ${JSON.stringify(sessionSummary)}
+
+Write a brief conditions guide (100-150 words) covering: best time of day, best weather, best wind direction, best pressure, best moon phase — but ONLY based on actual patterns in their data. If data is insufficient for any category, say "not enough data yet" for that specific point.`,
+    };
+
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: prompts[analysisType] }],
+        }),
+      });
+      const data = await res.json();
+      setAnalysis(data.content?.[0]?.text || "Unable to generate analysis.");
+    } catch {
+      setAnalysis("Connection error. Please try again.");
+    }
+    setLoading(false);
+  };
+
+  const notEnoughData = sessions.length < 2;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ background: `linear-gradient(135deg, ${t.purple}22, ${t.accentDim}11)`, border: `1px solid ${t.purple}44`, borderRadius: 20, padding: 24 }}>
+        <div style={{ fontSize: 22, fontWeight: 800, color: t.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>AI Fishing Analysis</div>
+        <div style={{ color: t.textMuted, fontSize: 14, lineHeight: 1.6 }}>
+          {notEnoughData
+            ? `You've logged ${sessions.length} session${sessions.length !== 1 ? "s" : ""}. Log at least 2 sessions to unlock your first analysis. The more you log, the more accurate and personal the insights become.`
+            : `Based on ${sessions.length} session${sessions.length !== 1 ? "s" : ""} in your diary. ${sessions.length < 8 ? "Early analysis — patterns will sharpen as you log more sessions." : sessions.length < 20 ? "Good data set — solid insights available." : "Strong data set — high confidence insights."}`
+          }
+        </div>
+        {sessions.length > 0 && (
+          <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+            <div style={{ background: t.purple + "33", border: `1px solid ${t.purple}44`, borderRadius: 20, padding: "3px 12px", fontSize: 12, color: t.purple, fontWeight: 700 }}>
+              {sessions.length < 5 ? "⚠ Limited data" : sessions.length < 15 ? "✓ Good data" : "✓ Strong data"}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {!notEnoughData && (
+        <>
+          <div>
+            <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 10 }}>ANALYSIS TYPE</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {[
+                { id: "full", label: "Full Analysis" },
+                { id: "quick", label: "Quick Insight" },
+                { id: "conditions", label: "My Best Conditions" },
+              ].map(a => <Chip key={a.id} label={a.label} selected={analysisType === a.id} onClick={() => setType(a.id)} color={t.purple} />)}
+            </div>
+          </div>
+
+          <button onClick={generate} disabled={loading}
+            style={{ background: loading ? t.border : t.purple, color: loading ? t.textMuted : "#fff", border: "none", borderRadius: 12, padding: "16px", cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, transition: "all 0.2s" }}>
+            {loading ? "⏳ Analysing your diary..." : "Generate Analysis →"}
+          </button>
+
+          {analysis && (
+            <div style={{ background: t.surfaceAlt, border: `1px solid ${t.purple}44`, borderRadius: 16, padding: 24, animation: "fadeIn 0.4s ease" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <div style={{ width: 32, height: 32, borderRadius: "50%", background: t.purple + "33", border: `1px solid ${t.purple}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🤖</div>
+                <div style={{ fontWeight: 700, color: t.text, fontSize: 14 }}>
+                  {analysisType === "full" ? "Full Fishing Analysis" : analysisType === "quick" ? "Quick Insight" : "Your Best Conditions"}
+                </div>
+              </div>
+              <div style={{ color: t.text, fontSize: 14, lineHeight: 1.9, whiteSpace: "pre-wrap" }}>{analysis}</div>
+              <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${t.border}`, fontSize: 12, color: t.textMuted }}>
+                Based on {sessions.length} session{sessions.length !== 1 ? "s" : ""} · {new Date().toLocaleDateString("en-GB")}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {notEnoughData && sessions.length === 0 && (
+        <div style={{ background: t.surfaceAlt, border: `2px dashed ${t.border}`, borderRadius: 16, padding: 40, textAlign: "center" }}>
+          <div style={{ fontSize: 36, marginBottom: 12 }}>📔</div>
+          <div style={{ fontWeight: 700, color: t.text, fontSize: 16, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Start logging to unlock insights</div>
+          <div style={{ color: t.textMuted, fontSize: 14, lineHeight: 1.7, maxWidth: 380, margin: "0 auto" }}>Every session you log — including blanks — teaches the AI about your fishing patterns. After just a few sessions, you'll start seeing personal insights.</div>
+        </div>
+      )}
+
+      {/* Data preview */}
+      {sessions.length > 0 && (
+        <div style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>YOUR DIARY AT A GLANCE</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+            {[
+              { label: "Sessions", value: sessions.length },
+              { label: "Total fish", value: sessions.reduce((a, s) => a + (s.totalFish || 0), 0) },
+              { label: "Blank rate", value: sessions.length > 0 ? `${Math.round(sessions.filter(s => s.blank).length / sessions.length * 100)}%` : "—" },
+            ].map((s, i) => (
+              <div key={i} style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: t.accent }}>{s.value}</div>
+                <div style={{ fontSize: 11, color: t.textMuted, marginTop: 2 }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── SESSION HISTORY ───────────────────────────────────────────────────────────
+function SessionHistory({ sessions }) {
+  const [selected, setSelected] = useState(null);
+  const s = selected !== null ? sessions[selected] : null;
+
+  if (sessions.length === 0) return (
+    <div style={{ background: t.surfaceAlt, border: `2px dashed ${t.border}`, borderRadius: 16, padding: 40, textAlign: "center" }}>
+      <div style={{ fontSize: 36, marginBottom: 12 }}>📔</div>
+      <div style={{ fontWeight: 700, color: t.text, fontSize: 16, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>No sessions logged yet</div>
+      <div style={{ color: t.textMuted, fontSize: 14 }}>Your session history will appear here once you log your first trip.</div>
+    </div>
+  );
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {selected !== null && s && (
+        <div style={{ background: t.surfaceAlt, border: `1px solid ${t.accent}44`, borderRadius: 16, padding: 20, animation: "fadeIn 0.2s ease" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: t.text, fontFamily: "'Playfair Display', serif" }}>{s.venueName}</div>
+              <div style={{ color: t.textMuted, fontSize: 13, marginTop: 2 }}>{s.date} · {s.sessionType} {s.startTime && `· ${s.startTime}${s.endTime ? `–${s.endTime}` : ""}`}</div>
+            </div>
+            <button onClick={() => setSelected(null)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: "50%", width: 30, height: 30, color: t.textMuted, cursor: "pointer", fontFamily: "inherit", fontSize: 16 }}>×</button>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 14 }}>
+            <div style={{ background: t.surface, borderRadius: 10, padding: "10px", textAlign: "center" }}>
+              <div style={{ fontSize: 22, fontWeight: 900, color: s.blank ? t.danger : t.accent }}>{s.blank ? "0" : s.totalFish}</div>
+              <div style={{ fontSize: 11, color: t.textMuted, marginTop: 2 }}>{s.blank ? "Blank" : "Fish"}</div>
+            </div>
+            {s.sessionRating > 0 && <div style={{ background: t.surface, borderRadius: 10, padding: "10px", textAlign: "center" }}>
+              <div style={{ fontSize: 18, color: t.warning }}>{"★".repeat(s.sessionRating)}</div>
+              <div style={{ fontSize: 11, color: t.textMuted, marginTop: 2 }}>Rating</div>
+            </div>}
+            {s.moonPhase && <div style={{ background: t.surface, borderRadius: 10, padding: "10px", textAlign: "center" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: t.text }}>{s.moonPhase}</div>
+              <div style={{ fontSize: 11, color: t.textMuted, marginTop: 2 }}>Moon</div>
+            </div>}
+          </div>
+          {s.catches?.length > 0 && (
+            <div style={{ marginBottom: 12 }}>
+              <div style={{ fontSize: 11, color: t.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 8 }}>CATCHES</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {s.catches.map((c, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", background: t.surface, borderRadius: 8, padding: "8px 12px" }}>
+                    <span style={{ color: t.text, fontSize: 13, fontWeight: 600 }}>{c.species || "Unknown"}</span>
+                    <span style={{ color: t.accent, fontSize: 13, fontWeight: 700 }}>{c.weightLb || 0}lb {c.weightOz || 0}oz</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {s.baitUsed?.length > 0 && <div style={{ fontSize: 13, color: t.textMuted, marginBottom: 6 }}>🎣 Bait: {s.baitUsed.join(", ")}</div>}
+          {s.rigUsed && <div style={{ fontSize: 13, color: t.textMuted, marginBottom: 6 }}>⚙️ Rig: {s.rigUsed}</div>}
+          {(s.weatherCondition || s.windDirection || s.temperature) && (
+            <div style={{ fontSize: 13, color: t.textMuted, marginBottom: 6 }}>
+              🌤️ {[s.weatherCondition, s.windDirection && `${s.windDirection} wind`, s.temperature && `${s.temperature}°C`].filter(Boolean).join(" · ")}
+            </div>
+          )}
+          {s.publicReport && (
+            <div style={{ background: t.surface, borderRadius: 10, padding: 12, marginTop: 10, fontSize: 13, color: t.textMuted, lineHeight: 1.6, fontStyle: "italic" }}>"{s.publicReport}"</div>
+          )}
+          {s.privateNotes && (
+            <div style={{ background: t.danger + "11", border: `1px solid ${t.danger}22`, borderRadius: 10, padding: 12, marginTop: 8, fontSize: 13, color: t.textMuted, lineHeight: 1.6 }}>
+              🔒 <strong style={{ color: t.text }}>Private notes:</strong> {s.privateNotes}
+            </div>
+          )}
+        </div>
+      )}
+
+      {sessions.map((s, i) => (
+        <div key={i} onClick={() => setSelected(selected === i ? null : i)}
+          style={{ background: t.surfaceAlt, border: `1px solid ${selected === i ? t.accent : t.border}`, borderRadius: 14, padding: "14px 18px", cursor: "pointer", transition: "all 0.2s", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 700, color: t.text, fontSize: 15, marginBottom: 3 }}>{s.venueName || "Unknown venue"}</div>
+            <div style={{ fontSize: 12, color: t.textMuted }}>{s.date} · {s.sessionType}</div>
+            {(s.baitUsed?.length > 0 || s.rigUsed) && (
+              <div style={{ fontSize: 11, color: t.textMuted, marginTop: 4 }}>{[s.baitUsed?.[0], s.rigUsed].filter(Boolean).join(" · ")}</div>
+            )}
+          </div>
+          <div style={{ textAlign: "right", flexShrink: 0, marginLeft: 12 }}>
+            {s.blank ? (
+              <div style={{ color: t.danger, fontWeight: 700, fontSize: 14 }}>Blank</div>
+            ) : (
+              <div style={{ color: t.accent, fontWeight: 900, fontSize: 20 }}>{s.totalFish}</div>
+            )}
+            {!s.blank && <div style={{ fontSize: 10, color: t.textMuted }}>fish</div>}
+            {s.sessionRating > 0 && <div style={{ color: t.warning, fontSize: 11, marginTop: 2 }}>{"★".repeat(s.sessionRating)}</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── MAIN DIARY TAB ────────────────────────────────────────────────────────────
+function DiaryTab() {
+  const [profile, setProfile]   = useState(null);
+  const [sessions, setSessions] = useState([]);
+  const [view, setView]         = useState("profile"); // profile | log | history | analysis | editProfile
+  const [postSave, setPostSave] = useState(null);
+  const [loaded, setLoaded]     = useState(false);
+
+  // Load from storage
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const p = await window.storage.get("rbf_profile");
+        const s = await window.storage.get("rbf_sessions");
+        if (p) setProfile(JSON.parse(p.value));
+        if (s) setSessions(JSON.parse(s.value));
+      } catch {}
+      setLoaded(true);
+    };
+    loadData();
+  }, []);
+
+  const saveProfile = async (p) => {
+    setProfile(p);
+    try { await window.storage.set("rbf_profile", JSON.stringify(p)); } catch {}
+    setView("profile");
+  };
+
+  const saveSession = async (session) => {
+    const updated = [session, ...sessions];
+    setSessions(updated);
+    try { await window.storage.set("rbf_sessions", JSON.stringify(updated)); } catch {}
+    setPostSave(session);
+    setView("postSave");
+  };
+
+  if (!loaded) return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 200, color: t.textMuted }}>Loading your diary...</div>
+  );
+
+  if (!profile && view !== "editProfile") return <ProfileSetup onSave={saveProfile} />;
+  if (view === "editProfile") return <ProfileSetup onSave={saveProfile} />;
+  if (view === "log") return <SessionLogger sessions={sessions} onSave={saveSession} onCancel={() => setView("profile")} />;
+
+  if (view === "postSave") return (
+    <div style={{ maxWidth: 500, margin: "0 auto", textAlign: "center", padding: "40px 0" }}>
+      <div style={{ fontSize: 48, marginBottom: 16 }}>✓</div>
+      <div style={{ fontSize: 24, fontWeight: 800, color: t.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>Session Saved</div>
+      <div style={{ color: t.textMuted, fontSize: 14, marginBottom: 28 }}>{postSave?.blank ? "Blank session logged — useful data for your analysis." : `${postSave?.catches?.length || postSave?.totalFish || 0} fish logged at ${postSave?.venueName}.`}</div>
+      <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+        <button onClick={() => { setView("analysis"); setPostSave(null); }} style={{ background: t.purple, color: "#fff", border: "none", borderRadius: 12, padding: "12px 24px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 14 }}>View AI Analysis →</button>
+        <button onClick={() => { setView("log"); setPostSave(null); }} style={{ background: t.surfaceAlt, border: `1px solid ${t.border}`, borderRadius: 12, padding: "12px 24px", cursor: "pointer", color: t.textMuted, fontFamily: "inherit", fontSize: 14 }}>Log Another</button>
+        <button onClick={() => { setView("profile"); setPostSave(null); }} style={{ background: "none", border: `1px solid ${t.border}`, borderRadius: 12, padding: "12px 24px", cursor: "pointer", color: t.textMuted, fontFamily: "inherit", fontSize: 14 }}>Back to Profile</button>
+      </div>
+    </div>
+  );
+
+  const subTabs = [
+    { id: "profile",  label: "Profile"  },
+    { id: "history",  label: "History"  },
+    { id: "analysis", label: "AI Analysis" },
+  ];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+      {/* Sub navigation */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+        <div style={{ display: "flex", gap: 0, background: t.surfaceAlt, borderRadius: 12, padding: 4 }}>
+          {subTabs.map(tab => (
+            <button key={tab.id} onClick={() => setView(tab.id)}
+              style={{ background: view === tab.id ? t.surface : "none", color: view === tab.id ? t.text : t.textMuted, border: `1px solid ${view === tab.id ? t.border : "transparent"}`, borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600, transition: "all 0.2s", whiteSpace: "nowrap" }}>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <button onClick={() => setView("log")}
+          style={{ background: t.accent, color: "#000", border: "none", borderRadius: 12, padding: "10px 20px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 13, whiteSpace: "nowrap" }}>
+          + Log Session
+        </button>
+      </div>
+
+      {view === "profile"  && <ProfileView  profile={profile} sessions={sessions} setView={setView} />}
+      {view === "history"  && <SessionHistory sessions={sessions} />}
+      {view === "analysis" && <AIAnalysis sessions={sessions} profile={profile} />}
+    </div>
+  );
+}
 function ListYourFisheryTab() {
+  const TOTAL_SPOTS = 50;
+  const SPOTS_TAKEN = 14;
+  const spotsLeft   = TOTAL_SPOTS - SPOTS_TAKEN;
+
   const [formData, setFormData] = useState({ name: "", email: "", fishery: "", phone: "", region: "", message: "" });
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus]     = useState("idle");
   const set = (f, v) => setFormData(prev => ({ ...prev, [f]: v }));
 
   const submit = async () => {
@@ -1579,7 +2549,7 @@ function ListYourFisheryTab() {
       await fetch("https://hook.eu1.make.com/e4rif83s57n7gcapxymbc75vydg2oaa5", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "fishery_listing_enquiry", ...formData, date: new Date().toISOString().split("T")[0] })
+        body: JSON.stringify({ type: "founding_member_enquiry", ...formData, date: new Date().toISOString().split("T")[0] })
       });
       setStatus("success");
     } catch {
@@ -1592,24 +2562,34 @@ function ListYourFisheryTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
 
-      {/* Hero */}
-      <div style={{ background: `linear-gradient(135deg, ${theme.accentDim}33, ${theme.waterDim}22)`, border: `1px solid ${theme.accent}44`, borderRadius: 20, padding: 32, textAlign: "center" }}>
-        <div style={{ fontSize: 11, color: theme.accent, fontWeight: 700, letterSpacing: 2, marginBottom: 12 }}>FOR FISHERY OWNERS</div>
-        <div style={{ fontSize: 30, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif", lineHeight: 1.2, marginBottom: 16 }}>Get your fishery in front of thousands of UK anglers — completely free</div>
-        <div style={{ color: theme.textMuted, fontSize: 15, maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>Reel Big Fish is a free platform built for UK anglers. We're building the most complete fishing venue directory in the country and we want your fishery in it from day one.</div>
+      <div style={{ background: `linear-gradient(135deg, ${theme.warning}22, ${theme.accentDim}22)`, border: `1px solid ${theme.warning}66`, borderRadius: 20, padding: 32, textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 16, right: 16, background: theme.warning, color: "#000", borderRadius: 20, padding: "4px 14px", fontSize: 11, fontWeight: 800, letterSpacing: 1 }}>FOUNDING MEMBER OFFER</div>
+        <div style={{ fontSize: 11, color: theme.warning, fontWeight: 700, letterSpacing: 2, marginBottom: 12 }}>FOR FISHERY OWNERS</div>
+        <div style={{ fontSize: 32, fontWeight: 900, color: theme.text, fontFamily: "'Playfair Display', serif", lineHeight: 1.2, marginBottom: 16 }}>6 months completely free.<br />No card. No commitment.</div>
+        <div style={{ color: theme.textMuted, fontSize: 15, maxWidth: 520, margin: "0 auto 24px", lineHeight: 1.7 }}>We're building the UK's best fishing venue directory. The first 50 fisheries to join get 6 months as a founding member — full listing, all features, completely free. After 6 months, you'll have seen exactly how many anglers found your venue through Reel Big Fish.</div>
+        <div style={{ background: theme.surface, borderRadius: 16, padding: "16px 24px", maxWidth: 340, margin: "0 auto" }}>
+          <div style={{ fontSize: 13, color: theme.textMuted, marginBottom: 10 }}>Founding member spots remaining</div>
+          <div style={{ background: theme.border, borderRadius: 8, height: 10, marginBottom: 10, overflow: "hidden" }}>
+            <div style={{ width: `${(SPOTS_TAKEN / TOTAL_SPOTS) * 100}%`, height: "100%", background: `linear-gradient(90deg, ${theme.accent}, ${theme.warning})`, borderRadius: 8 }} />
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ fontSize: 13, color: theme.textMuted }}><strong style={{ color: theme.warning }}>{SPOTS_TAKEN}</strong> of {TOTAL_SPOTS} taken</div>
+            <div style={{ fontSize: 18, fontWeight: 900, color: spotsLeft <= 10 ? theme.danger : theme.accent }}>{spotsLeft} left</div>
+          </div>
+        </div>
       </div>
 
-      {/* What you get */}
       <div>
-        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 16 }}>What's included — free</div>
+        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 6 }}>What founding members get</div>
+        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 16 }}>Everything. Free. For 6 months.</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           {[
-            { icon: "📍", title: "Full venue profile", body: "Name, location, description, photos, species, facilities and rules." },
-            { icon: "🎟️", title: "Ticket pricing", body: "Day tickets, evening tickets, season tickets and night fishing availability." },
-            { icon: "⛺", title: "Campsite information", body: "Nearest campsites, distances and facilities for overnight anglers." },
-            { icon: "⭐", title: "Member reviews", body: "Genuine reviews from anglers who've fished your venue." },
-            { icon: "🔍", title: "Search visibility", body: "Listed by region, species and venue type so anglers find you easily." },
-            { icon: "📱", title: "Mobile optimised", body: "Your listing looks great on every device, every screen size." },
+            { icon: "📍", title: "Full venue profile", body: "Name, location, description, photos, species, facilities, rules and ticket prices." },
+            { icon: "⭐", title: "Founding member badge", body: "Permanently displayed on your listing as one of the original Reel Big Fish venues." },
+            { icon: "🔍", title: "Search visibility", body: "Listed by region, species and venue type. Anglers searching in your area will find you." },
+            { icon: "⛺", title: "Trip planner feature", body: "Your venue featured in the trip planner alongside nearest campsites." },
+            { icon: "📊", title: "Monthly view report", body: "See exactly how many anglers viewed your listing each month." },
+            { icon: "💬", title: "Angler reviews", body: "Genuine reviews from anglers who've fished your venue, building your reputation." },
           ].map((item, i) => (
             <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18 }}>
               <div style={{ fontSize: 24, marginBottom: 8 }}>{item.icon}</div>
@@ -1620,16 +2600,38 @@ function ListYourFisheryTab() {
         </div>
       </div>
 
-      {/* Contact form */}
-      <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 28 }}>
-        <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 4 }}>Get Listed</div>
-        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>Fill in your details and we'll get your fishery set up within 48 hours.</div>
+      <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 16, padding: 24 }}>
+        <div style={{ fontSize: 16, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif", marginBottom: 16 }}>How it works</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {[
+            { step: "1", title: "Submit your details below", body: "Takes 2 minutes. We'll be in touch within 48 hours." },
+            { step: "2", title: "We build your listing", body: "Send us your venue details and photos. We set everything up for you." },
+            { step: "3", title: "Anglers find your fishery", body: "Your venue appears in search results, the trip planner and the regional directory." },
+            { step: "4", title: "After 6 months", body: "We share your view stats. If you want to continue as a paid featured member, great. If not, no pressure." },
+          ].map((item, i) => (
+            <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: theme.accent + "33", border: `1px solid ${theme.accent}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: theme.accent, flexShrink: 0, marginTop: 2 }}>{item.step}</div>
+              <div>
+                <div style={{ fontWeight: 700, color: theme.text, fontSize: 14, marginBottom: 2 }}>{item.title}</div>
+                <div style={{ color: theme.textMuted, fontSize: 13, lineHeight: 1.5 }}>{item.body}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: theme.surfaceAlt, border: `1px solid ${theme.warning}44`, borderRadius: 20, padding: 28 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6, flexWrap: "wrap", gap: 10 }}>
+          <div style={{ fontSize: 20, fontWeight: 800, color: theme.text, fontFamily: "'Playfair Display', serif" }}>Claim Your Founding Member Spot</div>
+          <div style={{ background: theme.warning + "22", border: `1px solid ${theme.warning}44`, borderRadius: 20, padding: "4px 14px", fontSize: 12, color: theme.warning, fontWeight: 700, whiteSpace: "nowrap" }}>{spotsLeft} spots left</div>
+        </div>
+        <div style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>Fill in your details and we'll be in touch within 48 hours to get your fishery live.</div>
 
         {status === "success" ? (
           <div style={{ textAlign: "center", padding: "32px 0" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>✓</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: theme.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>You're on the list</div>
-            <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7 }}>We'll be in touch within 48 hours to get your fishery set up. Thank you for being part of Reel Big Fish.</div>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>🎣</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: theme.accent, fontFamily: "'Playfair Display', serif", marginBottom: 8 }}>You're a founding member</div>
+            <div style={{ color: theme.textMuted, fontSize: 14, lineHeight: 1.7, maxWidth: 400, margin: "0 auto" }}>Welcome to Reel Big Fish. We'll be in touch within 48 hours to get your fishery set up. Thank you for being part of this from day one.</div>
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -1661,24 +2663,24 @@ function ListYourFisheryTab() {
               </select>
             </div>
             <div>
-              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>ANYTHING ELSE?</div>
-              <textarea value={formData.message} onChange={e => set("message", e.target.value)} placeholder="Tell us about your fishery, what makes it special, or any questions you have..." rows={4} style={{ ...inp, resize: "vertical" }} />
+              <div style={{ fontSize: 11, color: theme.textMuted, fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>TELL US ABOUT YOUR FISHERY</div>
+              <textarea value={formData.message} onChange={e => set("message", e.target.value)} placeholder="Type of fishing, number of lakes, species stocked, anything that makes your venue special..." rows={4} style={{ ...inp, resize: "vertical" }} />
             </div>
             <button onClick={submit} disabled={!formData.name || !formData.email || !formData.fishery || status === "loading"}
-              style={{ background: !formData.name || !formData.email || !formData.fishery ? theme.border : theme.accent, color: !formData.name || !formData.email || !formData.fishery ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "16px", cursor: !formData.name || !formData.email || !formData.fishery ? "not-allowed" : "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 15, transition: "all 0.2s" }}>
-              {status === "loading" ? "Sending..." : "Get Listed Free →"}
+              style={{ background: !formData.name || !formData.email || !formData.fishery ? theme.border : theme.warning, color: !formData.name || !formData.email || !formData.fishery ? theme.textMuted : "#000", border: "none", borderRadius: 12, padding: "16px", cursor: !formData.name || !formData.email || !formData.fishery ? "not-allowed" : "pointer", fontFamily: "inherit", fontWeight: 800, fontSize: 15, transition: "all 0.2s" }}>
+              {status === "loading" ? "Sending..." : "Claim My Free 6 Months →"}
             </button>
             {status === "error" && <div style={{ color: theme.danger, fontSize: 13, textAlign: "center" }}>Something went wrong. Please try again.</div>}
+            <div style={{ fontSize: 12, color: theme.textMuted, textAlign: "center", lineHeight: 1.6 }}>No credit card required · No commitment · Cancel anytime · 6 months completely free</div>
           </div>
         )}
       </div>
 
-      {/* Simple reassurances */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
         {[
-          { title: "100% free", body: "No credit card, no hidden costs, no commitment required." },
-          { title: "We do the work", body: "Send us your details and we'll build the listing for you." },
-          { title: "Real anglers", body: "Our audience is actively searching for venues like yours." },
+          { title: "No credit card", body: "Zero financial commitment to get started. Just your fishery details." },
+          { title: "We do the work", body: "Send us your details and photos. We build your listing for you." },
+          { title: "Real anglers", body: "Our growing audience is actively searching for venues like yours." },
         ].map((item, i) => (
           <div key={i} style={{ background: theme.surfaceAlt, border: `1px solid ${theme.border}`, borderRadius: 14, padding: 18, textAlign: "center" }}>
             <div style={{ fontWeight: 700, color: theme.accent, fontSize: 14, marginBottom: 6 }}>{item.title}</div>
@@ -1694,12 +2696,11 @@ export default function ReelBigFishApp() {
   const [tab, setTab] = useState("home");
   const tabs = [
     { id: "home",      label: "Home" },
+    { id: "diary",     label: "My Diary" },
     { id: "forecast",  label: "Forecast" },
-    { id: "directory", label: "Venues" },
-    { id: "planner",   label: "Trip Planner" },
+    { id: "chat",      label: "AI Guide" },
     { id: "forum",     label: "Forum" },
     { id: "community", label: "Community" },
-    { id: "chat",      label: "AI Guide" },
     { id: "report",    label: "Report" },
     { id: "list",      label: "List Your Fishery" },
   ];
@@ -1714,7 +2715,6 @@ export default function ReelBigFishApp() {
         @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)} }
         @keyframes fadeIn { from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)} }
         @keyframes slideUp { from{transform:translateY(100%)}to{transform:translateY(0)} }
-        @keyframes shimmer { 0%,100%{opacity:0.6} 50%{opacity:1} }
         button:hover { filter: brightness(1.1); }
       `}</style>
 
@@ -1724,11 +2724,11 @@ export default function ReelBigFishApp() {
           <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${theme.accent}, ${theme.water})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 14, color: "#000", letterSpacing: -0.5 }}>RBF</div>
           <div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 20, color: theme.text, letterSpacing: -0.5 }}>Reel Big Fish</div>
-            <div style={{ fontSize: 11, color: theme.textMuted, marginTop: -2 }}>The UK's Free Fishing Guide</div>
+            <div style={{ fontSize: 11, color: theme.textMuted, marginTop: -2 }}>The UK's Free Fishing Platform</div>
           </div>
         </div>
-        <button onClick={() => setTab("list")} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap" }}>
-          List Your Fishery
+        <button onClick={() => setTab("diary")} style={{ background: theme.accent, color: "#000", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap" }}>
+          My Diary
         </button>
       </div>
 
@@ -1736,7 +2736,7 @@ export default function ReelBigFishApp() {
       <div style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, padding: "0 24px", display: "flex", gap: 4, overflowX: "auto" }}>
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            style={{ background: "none", border: "none", borderBottom: `2px solid ${tab === t.id ? theme.accent : "transparent"}`, color: t.id === "list" ? theme.warning : tab === t.id ? theme.accent : theme.textMuted, padding: "14px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: 600, transition: "all 0.2s", whiteSpace: "nowrap" }}>
+            style={{ background: "none", border: "none", borderBottom: `2px solid ${tab === t.id ? theme.accent : "transparent"}`, color: t.id === "list" ? theme.warning : t.id === "diary" ? (tab === t.id ? theme.accent : theme.accent + "88") : tab === t.id ? theme.accent : theme.textMuted, padding: "14px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: 13, fontWeight: t.id === "diary" ? 700 : 600, transition: "all 0.2s", whiteSpace: "nowrap" }}>
             {t.label}
           </button>
         ))}
@@ -1745,12 +2745,11 @@ export default function ReelBigFishApp() {
       {/* Content */}
       <div style={{ maxWidth: tab === "home" ? "100%" : 900, margin: "0 auto", padding: tab === "home" ? 0 : 24 }}>
         {tab === "home"      && <HomePage setTab={setTab} />}
+        {tab === "diary"     && <DiaryTab />}
         {tab === "forecast"  && <ForecastTab />}
-        {tab === "directory" && <DirectoryTab />}
-        {tab === "planner"   && <TripPlannerTab />}
+        {tab === "chat"      && <ChatTab />}
         {tab === "forum"     && <ForumTab />}
         {tab === "community" && <CommunityTab />}
-        {tab === "chat"      && <ChatTab />}
         {tab === "report"    && <ReportTab />}
         {tab === "list"      && <ListYourFisheryTab />}
       </div>
